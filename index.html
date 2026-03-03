@@ -21,6 +21,15 @@
         <div class="sidebar-header">
             <h2><i class="ph-shield-warning"></i> SecNotes</h2>
         </div>
+        <div class="sidebar-search">
+            <i class="ph-magnifying-glass"></i>
+            <input type="text" placeholder="Search topics..." id="sidebar-search-input" autocomplete="off">
+        </div>
+        <div class="theme-toggle-wrapper">
+            <button id="theme-toggle" class="theme-toggle">
+                <i class="ph-sun"></i> Light Mode
+            </button>
+        </div>
         <nav class="sidebar-nav">
 
             <div class="nav-section">
@@ -203,14 +212,7 @@
                     </li>
                 </ul>
             </div>
-
-
-            <div class="theme-toggle-wrapper">
-                <button id="theme-toggle" class="theme-toggle">
-                    <i class="ph-sun"></i> Light Mode
-                </button>
-            </div>
-        </nav>
+</nav>
     </aside>
 
     <div class="main-wrapper">
@@ -218,9 +220,11 @@
 
             <!-- Hero Header -->
             <div class="hero-header">
+                <!-- Dot grid overlay -->
+                <div class="hero-grid-bg"></div>
                 <div class="hero-badge">
                     <i class="ph-shield-warning"></i>
-                    <span>Security Hub v2.0</span>
+                    <span>Security Operations Hub</span>
                 </div>
                 <h1>Operations Dashboard</h1>
                 <p class="hero-desc">Your personal Red Team &amp; Security Operations knowledge base. Structured for
@@ -235,7 +239,7 @@
             <!-- Stats Row -->
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: #8b5cf6; background: rgba(139,92,246,0.12);">
+                    <div class="stat-icon" style="color: #a78bfa; background: rgba(139,92,246,0.12);">
                         <i class="ph-files"></i>
                     </div>
                     <div class="stat-info">
@@ -244,7 +248,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: #0ea5e9; background: rgba(14,165,233,0.12);">
+                    <div class="stat-icon" style="color: #22d3ee; background: rgba(34,211,238,0.12);">
                         <i class="ph-code-block"></i>
                     </div>
                     <div class="stat-info">
@@ -253,7 +257,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: #10b981; background: rgba(16,185,129,0.12);">
+                    <div class="stat-icon" style="color: #34d399; background: rgba(16,185,129,0.12);">
                         <i class="ph-toolbox"></i>
                     </div>
                     <div class="stat-info">
@@ -262,7 +266,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: #f59e0b; background: rgba(245,158,11,0.12);">
+                    <div class="stat-icon" style="color: #fbbf24; background: rgba(245,158,11,0.12);">
                         <i class="ph-target"></i>
                     </div>
                     <div class="stat-info">
@@ -280,8 +284,8 @@
 
                 <div class="dashboard-grid">
                     <div class="dashboard-card" id="nav-linux" onclick="window.location.href='linux/index.html'">
-                        <div class="dc-icon-wrap" style="background: rgba(139,92,246,0.12);">
-                            <i class="ph-linux-logo" style="color: var(--accent-primary)"></i>
+                        <div class="dc-icon-wrap">
+                            <i class="ph-linux-logo"></i>
                         </div>
                         <h3>Linux Ecosystem</h3>
                         <p class="dc-desc">Internals, enumeration, permissions, and system commands.</p>
@@ -293,8 +297,8 @@
 
                     <div class="dashboard-card" id="nav-websec"
                         onclick="window.location.href='web-security/index.html'">
-                        <div class="dc-icon-wrap" style="background: rgba(14,165,233,0.12);">
-                            <i class="ph-shield-check" style="color: var(--accent-secondary)"></i>
+                        <div class="dc-icon-wrap">
+                            <i class="ph-shield-check"></i>
                         </div>
                         <h3>Web Security</h3>
                         <p class="dc-desc">OWASP Top 10, SQLi, XSS, Auth bypass, and session attacks.</p>
@@ -306,8 +310,8 @@
 
                     <div class="dashboard-card" id="nav-networking"
                         onclick="window.location.href='networking/index.html'">
-                        <div class="dc-icon-wrap" style="background: rgba(16,185,129,0.12);">
-                            <i class="ph-globe-hemisphere-west" style="color: #10b981"></i>
+                        <div class="dc-icon-wrap">
+                            <i class="ph-globe-hemisphere-west"></i>
                         </div>
                         <h3>Networking</h3>
                         <p class="dc-desc">Protocol analysis, OSI model, TCP/IP, DNS, and ports.</p>
@@ -318,8 +322,8 @@
                     </div>
 
                     <div class="dashboard-card" id="nav-bash" onclick="window.location.href='bash/index.html'">
-                        <div class="dc-icon-wrap" style="background: rgba(245,158,11,0.12);">
-                            <i class="ph-terminal-window" style="color: #f59e0b"></i>
+                        <div class="dc-icon-wrap">
+                            <i class="ph-terminal-window"></i>
                         </div>
                         <h3>Bash Scripting</h3>
                         <p class="dc-desc">Shell fundamentals, loops, conditionals, and powerful one-liners.</p>
@@ -331,8 +335,8 @@
 
                     <div class="dashboard-card" id="nav-privesc"
                         onclick="window.location.href='privilege-escalation/index.html'">
-                        <div class="dc-icon-wrap" style="background: rgba(239,68,68,0.12);">
-                            <i class="ph-trend-up" style="color: #ef4444"></i>
+                        <div class="dc-icon-wrap">
+                            <i class="ph-trend-up"></i>
                         </div>
                         <h3>Privilege Escalation</h3>
                         <p class="dc-desc">Linux PrivEsc vectors, SUID abuse, sudo misconfigs, and more.</p>
@@ -343,8 +347,8 @@
                     </div>
 
                     <div class="dashboard-card" id="nav-tools" onclick="window.location.href='tools/index.html'">
-                        <div class="dc-icon-wrap" style="background: rgba(245,158,11,0.12);">
-                            <i class="ph-toolbox" style="color: #f59e0b"></i>
+                        <div class="dc-icon-wrap">
+                            <i class="ph-toolbox"></i>
                         </div>
                         <h3>Tool Arsenal</h3>
                         <p class="dc-desc">Nmap, Burp Suite, Wireshark, and Metasploit quick-reference.</p>

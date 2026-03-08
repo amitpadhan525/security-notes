@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="background-color:#020202">
+<html lang="en" >
 
 <head>
     <meta charset="UTF-8">
@@ -7,101 +7,10 @@
     <title>Linux PrivEsc Basics - Security Hub</title>
     <meta name="description"
         content="Linux Privilege Escalation — enumeration, SUID, sudo abuse, writable paths, cron jobs, and tools.">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <link rel="stylesheet" href="../css/style.css">
-    <style>
-        .danger-box {
-            background: rgba(239, 68, 68, .06);
-            border: 1px solid rgba(239, 68, 68, .2);
-            border-radius: 10px;
-            padding: 1rem 1.2rem;
-            margin: .75rem 0;
-            display: flex;
-            gap: .75rem;
-            align-items: flex-start
-        }
-
-        .danger-box i {
-            color: #ef4444;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-            margin-top: 2px
-        }
-
-        .danger-box p {
-            font-size: .875rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.55
-        }
-
-        .tip-box {
-            background: rgba(16, 185, 129, .06);
-            border: 1px solid rgba(16, 185, 129, .2);
-            border-radius: 10px;
-            padding: 1rem 1.2rem;
-            margin: .75rem 0;
-            display: flex;
-            gap: .75rem;
-            align-items: flex-start
-        }
-
-        .tip-box i {
-            color: #10b981;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-            margin-top: 2px
-        }
-
-        .tip-box p {
-            font-size: .875rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.55
-        }
-
-        .vec-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem
-        }
-
-        .vec-card {
-            background: var(--bg-surface-hover);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.2rem;
-            border-left: 3px solid transparent;
-            transition: all .25s
-        }
-
-        .vec-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, .4)
-        }
-
-        .vec-card i {
-            font-size: 1.4rem;
-            margin-bottom: .55rem;
-            display: block
-        }
-
-        .vec-card h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: .9rem;
-            font-weight: 600;
-            margin: 0 0 .3rem
-        }
-
-        .vec-card p {
-            font-size: .79rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.5
-        }
-    </style>
-    <script>if (localStorage.getItem('theme') === 'light-mode') document.documentElement.classList.add('light-mode');</script>
+    
+    
 </head>
 
 <body>
@@ -199,26 +108,26 @@
                         vulnerable</strong> on the system. There is no single magic command — you must <em>enumerate
                         thoroughly first</em>, then attack the most promising vector.</p>
                 <div class="vec-grid">
-                    <div class="vec-card" style="border-left-color:#ef4444">
-                        <i class="ph-list-magnifying-glass" style="color:#f87171;"></i>
+                    <div class="vec-card">
+                        <i class="ph-list-magnifying-glass"></i>
                         <h3>1. Enumerate Everything</h3>
                         <p>System info, users, SUID bits, sudo rules, running processes, cron jobs, writable files,
                             network services, passwords in files.</p>
                     </div>
-                    <div class="vec-card" style="border-left-color:#f59e0b">
-                        <i class="ph-magnifying-glass" style="color:#fbbf24;"></i>
+                    <div class="vec-card">
+                        <i class="ph-magnifying-glass"></i>
                         <h3>2. Find the Weakness</h3>
                         <p>A misset SUID binary, a sudo rule that allows a dangerous command, a cron job running as root
                             with a writable script.</p>
                     </div>
-                    <div class="vec-card" style="border-left-color:#8b5cf6">
-                        <i class="ph-trend-up" style="color:#a78bfa;"></i>
+                    <div class="vec-card">
+                        <i class="ph-trend-up"></i>
                         <h3>3. Exploit &amp; Escalate</h3>
                         <p>Use GTFOBins, craft a payload, or exploit a kernel vulnerability to gain a root shell or
                             write to <code class="inline">/etc/passwd</code>/<code class="inline">sudoers</code>.</p>
                     </div>
-                    <div class="vec-card" style="border-left-color:#10b981">
-                        <i class="ph-check-circle" style="color:#34d399;"></i>
+                    <div class="vec-card">
+                        <i class="ph-check-circle"></i>
                         <h3>4. Verify Root</h3>
                         <p>Confirm with <code class="inline">id</code>, <code class="inline">whoami</code>, <code
                                 class="inline">cat /root/root.txt</code>, or <code class="inline">sudo -i</code> on the
@@ -315,7 +224,7 @@ su hacked                        # password: hacked</code></pre>
                 </div>
                 <div class="tip-box"><i class="ph-lightbulb"></i>
                     <p>Always check <strong>GTFOBins</strong> (<a href="https://gtfobins.github.io" target="_blank"
-                            style="color:var(--accent-primary);">gtfobins.github.io</a>) — it documents exactly how to
+                           >gtfobins.github.io</a>) — it documents exactly how to
                         abuse common Unix binaries for SUID, sudo, and shell escapes.</p>
                 </div>
             </div>

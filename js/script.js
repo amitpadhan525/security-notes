@@ -1,1 +1,72 @@
-(function(){const e=document.createElement("style");e.textContent=`\n        @keyframes _pageIn {\n            from { opacity: 0; transform: translateY(12px); }\n            to   { opacity: 1; transform: translateY(0); }\n        }\n        body { animation: _pageIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) both; }\n    `;document.head.appendChild(e)})();document.addEventListener("click",function(e){const t=e.target.closest("a");if(!t||t.target==="_blank"||t.href.startsWith("javascript:")||t.href.startsWith("mailto:")||t.href.startsWith("#")||t.origin!==location.origin)return;e.preventDefault();const n=t.href;document.body.style.transition="opacity 0.15s ease, transform 0.15s ease";document.body.style.opacity="0";document.body.style.transform="translateY(-8px)";setTimeout(()=>{location.href=n},160)},true);document.addEventListener("DOMContentLoaded",()=>{const e=document.getElementById("mobile-toggle");const t=document.getElementById("sidebar");if(e&&t){e.addEventListener("click",()=>{t.classList.toggle("open");const n=e.querySelector("i");if(t.classList.contains("open")){n.classList.replace("ph-list","ph-x")}else{n.classList.replace("ph-x","ph-list")}});document.addEventListener("click",n=>{if(window.innerWidth<=768&&t.classList.contains("open")){if(!t.contains(n.target)&&!e.contains(n.target)){t.classList.remove("open");const n=e.querySelector("i");n.classList.replace("ph-x","ph-list")}}})}const n=document.getElementById("sidebar-search-input");if(n){n.addEventListener("input",()=>{const e=n.value.toLowerCase().trim();const t=document.querySelectorAll(".nav-item");const o=document.querySelectorAll(".nav-section");if(!e){t.forEach(e=>e.style.display="");o.forEach(e=>e.style.display="");return}o.forEach(t=>{let n=false;t.querySelectorAll(".nav-item").forEach(t=>{const o=t.textContent.toLowerCase();const s=o.includes(e);t.style.display=s?"":"none";if(s)n=true});const o=t.querySelector(".section-title");if(o)o.style.opacity=n?"1":"0.3"})})}const o=document.querySelectorAll(".stat-number");if(o.length>0){const e=e=>{const t=e.textContent;const n=parseInt(t);const o=t.replace(/[0-9]/g,"");if(isNaN(n))return;const s=900;const i=performance.now();const c=t=>{const r=t-i;const a=Math.min(r/s,1);const l=1-Math.pow(1-a,3);e.textContent=Math.round(l*n)+o;if(a<1)requestAnimationFrame(c)};requestAnimationFrame(c)};const t=new IntersectionObserver(n=>{n.forEach(n=>{if(n.isIntersecting){e(n.target);t.unobserve(n.target)}})},{threshold:.5});o.forEach(e=>t.observe(e))}const s=document.getElementById("theme-toggle");if(localStorage.getItem("theme")==="light-mode"){document.body.classList.add("light-mode");document.documentElement.classList.add("light-mode");if(s)s.innerHTML='<i class="ph-moon"></i> Dark Mode'}if(s){s.addEventListener("click",()=>{if(document.body.classList.contains("light-mode")){document.body.classList.remove("light-mode");document.documentElement.classList.remove("light-mode");localStorage.setItem("theme","dark-mode");s.innerHTML='<i class="ph-sun"></i> Light Mode'}else{document.body.classList.add("light-mode");document.documentElement.classList.add("light-mode");localStorage.setItem("theme","light-mode");s.innerHTML='<i class="ph-moon"></i> Dark Mode'}})}});window.copyCode=function(e){const t=e.parentElement.nextElementSibling;const n=t?t.querySelector("code"):null;if(!n)return;navigator.clipboard.writeText(n.innerText).then(()=>{const t=e.innerHTML;e.innerHTML='<i class="ph-check"></i> Copied!';e.style.color="#34d399";e.style.borderColor="rgba(52,211,153,0.4)";e.style.background="rgba(52,211,153,0.08)";setTimeout(()=>{e.innerHTML=t;e.style.color="";e.style.borderColor="";e.style.background=""},2e3)}).catch(()=>{e.innerHTML='<i class="ph-warning"></i> Error';setTimeout(()=>{e.innerHTML='<i class="ph-copy"></i> Copy'},2e3)})};
+document.addEventListener("DOMContentLoaded", () => {
+  // Mobile Toggle
+  const mobileToggle = document.getElementById("mobile-toggle");
+  const sidebar = document.getElementById("sidebar");
+  if (mobileToggle && sidebar) {
+    mobileToggle.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+    });
+  }
+
+  // Search Logic
+  const searchInput = document.getElementById("sidebar-search-input");
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      const term = e.target.value.toLowerCase().trim();
+      const items = document.querySelectorAll(".nav-item");
+      const sections = document.querySelectorAll(".nav-section");
+
+      if (!term) {
+        items.forEach(i => i.style.display = "");
+        sections.forEach(s => s.style.display = "");
+        document.querySelectorAll(".section-title").forEach(t => t.style.opacity = "1");
+        return;
+      }
+
+      sections.forEach(section => {
+        let hasMatch = false;
+        section.querySelectorAll(".nav-item").forEach(item => {
+          const match = item.textContent.toLowerCase().includes(term);
+          item.style.display = match ? "" : "none";
+          if (match) hasMatch = true;
+        });
+        const title = section.querySelector(".section-title");
+        if (title) title.style.opacity = hasMatch ? "1" : "0.2";
+      });
+    });
+  }
+
+  // Tabs Logic
+  window.switchTab = function(tab) {
+    document.querySelectorAll(".qr-tab").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".qr-panel").forEach(p => p.classList.remove("active"));
+    const selectedTab = document.getElementById("tab-" + tab);
+    const selectedPanel = document.getElementById("panel-" + tab);
+    if (selectedTab) selectedTab.classList.add("active");
+    if (selectedPanel) selectedPanel.classList.add("active");
+  };
+
+  // Theme Toggle
+  const themeToggle = document.getElementById("theme-toggle");
+  const currentTheme = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", currentTheme);
+  if (themeToggle) {
+    themeToggle.textContent = currentTheme === "light" ? "Switch to Dark" : "Switch to Light";
+    themeToggle.addEventListener("click", () => {
+      const newTheme = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+      themeToggle.textContent = newTheme === "light" ? "Switch to Dark" : "Switch to Light";
+    });
+  }
+
+  // Copy Code
+  window.copyCode = function(btn) {
+    const code = btn.closest(".code-wrapper").querySelector("code").innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      const originalText = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(() => btn.textContent = originalText, 2000);
+    });
+  };
+});

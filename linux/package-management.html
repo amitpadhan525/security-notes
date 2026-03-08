@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" style="background-color:#020202">
+<html lang="en" >
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Package Management - Security Hub</title>
     <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <link rel="stylesheet" href="../css/style.css">
-    <script>if (localStorage.getItem('theme') === 'light-mode') document.documentElement.classList.add('light-mode');</script>
+    
 </head>
 
 <body>
@@ -239,9 +239,9 @@
                 <div class="dashboard-grid">
                     <div class="dashboard-card" style="cursor: default;">
                         <h3>Debian Base (APT / dpkg)</h3>
-                        <p style="font-size: 0.95rem; color: var(--text-muted);">Used by Ubuntu, Kali Linux, and Debian.
+                        <p>Used by Ubuntu, Kali Linux, and Debian.
                         </p>
-                        <ul class="styled-list" style="margin-top: 1rem;">
+                        <ul class="styled-list">
                             <li><strong>Packages:</strong> <code>.deb</code></li>
                             <li><strong>Frontend:</strong> <code>apt</code>, <code>apt-get</code></li>
                             <li><strong>Backend:</strong> <code>dpkg</code></li>
@@ -250,8 +250,8 @@
 
                     <div class="dashboard-card" style="cursor: default;">
                         <h3>Red Hat Base (YUM / DNF / RPM)</h3>
-                        <p style="font-size: 0.95rem; color: var(--text-muted);">Used by RHEL, Fedora, and CentOS.</p>
-                        <ul class="styled-list" style="margin-top: 1rem;">
+                        <p>Used by RHEL, Fedora, and CentOS.</p>
+                        <ul class="styled-list">
                             <li><strong>Packages:</strong> <code>.rpm</code></li>
                             <li><strong>Frontend:</strong> <code>dnf</code>, <code>yum</code></li>
                             <li><strong>Backend:</strong> <code>rpm</code></li>
@@ -260,8 +260,8 @@
 
                     <div class="dashboard-card" style="cursor: default;">
                         <h3>Arch Base (Pacman)</h3>
-                        <p style="font-size: 0.95rem; color: var(--text-muted);">Used by Arch Linux and Manjaro.</p>
-                        <ul class="styled-list" style="margin-top: 1rem;">
+                        <p>Used by Arch Linux and Manjaro.</p>
+                        <ul class="styled-list">
                             <li><strong>Packages:</strong> <code>.pkg.tar.zst</code></li>
                             <li><strong>Frontend/Backend:</strong> <code>pacman</code></li>
                         </ul>

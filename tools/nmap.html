@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="background-color:#020202">
+<html lang="en" >
 
 <head>
     <meta charset="UTF-8">
@@ -7,142 +7,10 @@
     <title>Nmap - Security Hub</title>
     <meta name="description"
         content="Complete Nmap reference — scan types, NSE scripts, output formats, and stealth techniques.">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <link rel="stylesheet" href="../css/style.css">
-    <style>
-        .flag-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: .875rem;
-            margin-top: 1rem
-        }
-
-        .flag-table th {
-            text-align: left;
-            padding: .55rem .8rem;
-            color: var(--text-muted);
-            font-size: .72rem;
-            text-transform: uppercase;
-            letter-spacing: .08em;
-            border-bottom: 1px solid var(--border-color)
-        }
-
-        .flag-table td {
-            padding: .6rem .8rem;
-            border-bottom: 1px solid var(--border-subtle);
-            vertical-align: top
-        }
-
-        .flag-table td:first-child {
-            font-family: 'Fira Code', monospace;
-            font-size: .82rem;
-            color: #38bdf8;
-            white-space: nowrap
-        }
-
-        .flag-table td:nth-child(2) {
-            font-size: .82rem;
-            color: var(--text-soft)
-        }
-
-        .flag-table tr:last-child td {
-            border-bottom: none
-        }
-
-        .tip-box {
-            background: rgba(16, 185, 129, .06);
-            border: 1px solid rgba(16, 185, 129, .2);
-            border-radius: 10px;
-            padding: 1rem 1.2rem;
-            margin: .75rem 0;
-            display: flex;
-            gap: .75rem;
-            align-items: flex-start
-        }
-
-        .tip-box i {
-            color: #10b981;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-            margin-top: 2px
-        }
-
-        .tip-box p {
-            font-size: .875rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.55
-        }
-
-        .warn-box {
-            background: rgba(245, 158, 11, .06);
-            border: 1px solid rgba(245, 158, 11, .2);
-            border-radius: 10px;
-            padding: 1rem 1.2rem;
-            margin: .75rem 0;
-            display: flex;
-            gap: .75rem;
-            align-items: flex-start
-        }
-
-        .warn-box i {
-            color: #f59e0b;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-            margin-top: 2px
-        }
-
-        .warn-box p {
-            font-size: .875rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.55
-        }
-
-        .scan-type-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem
-        }
-
-        .scan-card {
-            background: var(--bg-surface-hover);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.2rem;
-            transition: all .25s
-        }
-
-        .scan-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(14, 165, 233, .3)
-        }
-
-        .scan-card .sc-flag {
-            font-family: 'Fira Code', monospace;
-            font-size: .9rem;
-            color: #38bdf8;
-            font-weight: 600;
-            margin-bottom: .4rem;
-            display: block
-        }
-
-        .scan-card h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: .88rem;
-            font-weight: 600;
-            margin: 0 0 .3rem
-        }
-
-        .scan-card p {
-            font-size: .79rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.5
-        }
-    </style>
-    <script>if (localStorage.getItem('theme') === 'light-mode') document.documentElement.classList.add('light-mode');</script>
+    
+    
 </head>
 
 <body>

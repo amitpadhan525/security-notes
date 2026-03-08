@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="background-color:#020202">
+<html lang="en" >
 
 <head>
     <meta charset="UTF-8">
@@ -7,229 +7,10 @@
     <title>OSI Model - Security Hub</title>
     <meta name="description"
         content="Complete OSI Model reference — all 7 layers explained in detail with protocols, PDUs, real-world examples, and security relevance.">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <link rel="stylesheet" href="../css/style.css">
-    <style>
-        /* OSI Layer Cards */
-        .osi-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            margin-top: 1.25rem;
-        }
-
-        .osi-layer {
-            display: grid;
-            grid-template-columns: 56px 1fr;
-            gap: 0;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .osi-layer:hover {
-            transform: translateX(4px);
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
-        }
-
-        .osi-num {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #fff;
-            padding: 1.25rem 0;
-            min-height: 80px;
-        }
-
-        .osi-num span {
-            font-size: 0.55rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            opacity: 0.8;
-            margin-top: 0.15rem;
-        }
-
-        .osi-body {
-            background: var(--bg-surface);
-            padding: 1.1rem 1.4rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .osi-title-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .osi-title-row h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin: 0;
-            color: var(--text-main);
-        }
-
-        .osi-badges {
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-        }
-
-        .osi-badge {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.7rem;
-            padding: 0.15rem 0.55rem;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-soft);
-        }
-
-        .osi-desc {
-            font-size: 0.875rem;
-            color: var(--text-soft);
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .osi-meta {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-top: 0.3rem;
-        }
-
-        .osi-meta-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.1rem;
-        }
-
-        .osi-meta-label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .osi-meta-val {
-            font-size: 0.8rem;
-            color: var(--text-soft);
-            font-family: 'Fira Code', monospace;
-        }
-
-        .osi-sec {
-            font-size: 0.78rem;
-            color: #f87171;
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.15);
-            border-radius: 6px;
-            padding: 0.35rem 0.65rem;
-            margin-top: 0.25rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.4rem;
-        }
-
-        .osi-sec i {
-            flex-shrink: 0;
-            margin-top: 1px;
-        }
-
-        /* OSI diagram container */
-        .osi-diagram-wrap {
-            text-align: center;
-            margin: 1.25rem 0 0.5rem;
-        }
-
-        .osi-diagram-wrap img {
-            max-width: 420px;
-            width: 100%;
-            border-radius: 14px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .osi-diagram-caption {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 0.6rem;
-        }
-
-        /* Mnemonic box */
-        .mnemonic-box {
-            background: rgba(139, 92, 246, 0.07);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: 12px;
-            padding: 1.25rem 1.5rem;
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .mnemonic-box .mn-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--accent-primary);
-            font-weight: 700;
-            margin-bottom: 0.4rem;
-        }
-
-        .mn-letters {
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-        }
-
-        .mn-letter {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.1rem;
-        }
-
-        .mn-char {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #c4b5fd;
-        }
-
-        .mn-word {
-            font-size: 0.62rem;
-            color: var(--text-muted);
-            text-align: center;
-        }
-
-        body.light-mode .osi-body {
-            background: var(--bg-surface);
-        }
-
-        body.light-mode .osi-sec {
-            background: rgba(239, 68, 68, 0.05);
-            color: #dc2626;
-            border-color: rgba(239, 68, 68, 0.2);
-        }
-
-        body.light-mode .osi-badge {
-            background: rgba(0, 0, 0, 0.04);
-            border-color: rgba(0, 0, 0, 0.1);
-        }
-    </style>
-    <script>if (localStorage.getItem('theme') === 'light-mode') document.documentElement.classList.add('light-mode');</script>
+    
+    
 </head>
 
 <body>
@@ -358,7 +139,7 @@
                         each layer</p>
                 </div>
 
-                <p style="margin-top:1.25rem;">Data traveling <strong>down</strong> the stack (from the sender) gets
+                <p>Data traveling <strong>down</strong> the stack (from the sender) gets
                     <em>encapsulated</em> — headers are added at each layer. Data traveling <strong>up</strong> the
                     stack (at the receiver) gets <em>de-encapsulated</em> — headers are stripped off layer by layer.
                 </p>
@@ -390,10 +171,10 @@
                     </div>
                     <div>
                         <div class="mn-label">Phrase (7→1)</div>
-                        <p style="margin:0; color: var(--text-soft); font-size: 0.92rem; font-style:italic;">
+                        <p>
                             "<strong>All People Seem To Need Data Processing</strong>"</p>
-                        <div class="mn-label" style="margin-top:0.75rem;">Bottom → Top (1→7)</div>
-                        <p style="margin:0; color: var(--text-soft); font-size: 0.92rem; font-style:italic;">
+                        <div class="mn-label">Bottom → Top (1→7)</div>
+                        <p>
                             "<strong>Please Do Not Throw Sausage Pizza Away</strong>"</p>
                     </div>
                 </div>
@@ -409,7 +190,7 @@
 
                     <!-- Layer 7 -->
                     <div class="osi-layer">
-                        <div class="osi-num" style="background: linear-gradient(180deg, #7c3aed, #6d28d9);">
+                        <div class="osi-num">
                             7<span>App</span></div>
                         <div class="osi-body">
                             <div class="osi-title-row">
@@ -442,7 +223,7 @@
 
                     <!-- Layer 6 -->
                     <div class="osi-layer">
-                        <div class="osi-num" style="background: linear-gradient(180deg, #4f46e5, #4338ca);">
+                        <div class="osi-num">
                             6<span>Pres</span></div>
                         <div class="osi-body">
                             <div class="osi-title-row">
@@ -475,7 +256,7 @@
 
                     <!-- Layer 5 -->
                     <div class="osi-layer">
-                        <div class="osi-num" style="background: linear-gradient(180deg, #0284c7, #0369a1);">
+                        <div class="osi-num">
                             5<span>Ses</span></div>
                         <div class="osi-body">
                             <div class="osi-title-row">
@@ -507,7 +288,7 @@
 
                     <!-- Layer 4 -->
                     <div class="osi-layer">
-                        <div class="osi-num" style="background: linear-gradient(180deg, #0891b2, #0e7490);">
+                        <div class="osi-num">
                             4<span>Trans</span></div>
                         <div class="osi-body">
                             <div class="osi-title-row">
@@ -541,7 +322,7 @@
 
                     <!-- Layer 3 -->
                     <div class="osi-layer">
-                        <div class="osi-num" style="background: linear-gradient(180deg, #059669, #047857);">
+                        <div class="osi-num">
                             3<span>Net</span></div>
                         <div class="osi-body">
                             <div class="osi-title-row">
@@ -574,7 +355,7 @@
 
                     <!-- Layer 2 -->
                     <div class="osi-layer">
-                        <div class="osi-num" style="background: linear-gradient(180deg, #16a34a, #15803d);">
+                        <div class="osi-num">
                             2<span>Data</span></div>
                         <div class="osi-body">
                             <div class="osi-title-row">
@@ -609,7 +390,7 @@
 
                     <!-- Layer 1 -->
                     <div class="osi-layer">
-                        <div class="osi-num" style="background: linear-gradient(180deg, #525252, #404040);">
+                        <div class="osi-num">
                             1<span>Phys</span></div>
                         <div class="osi-body">
                             <div class="osi-title-row">
@@ -650,128 +431,128 @@
                 <div style="overflow-x:auto;">
                     <table style="width:100%; border-collapse:collapse; font-size:0.875rem;">
                         <thead>
-                            <tr style="border-bottom: 1px solid var(--border-color);">
+                            <tr>
                                 <th
-                                    style="text-align:left; padding:0.6rem 0.8rem; color:var(--text-muted); font-weight:600; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">
+                                   >
                                     #</th>
                                 <th
-                                    style="text-align:left; padding:0.6rem 0.8rem; color:var(--text-muted); font-weight:600; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">
+                                   >
                                     Layer</th>
                                 <th
-                                    style="text-align:left; padding:0.6rem 0.8rem; color:var(--text-muted); font-weight:600; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">
+                                   >
                                     PDU</th>
                                 <th
-                                    style="text-align:left; padding:0.6rem 0.8rem; color:var(--text-muted); font-weight:600; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">
+                                   >
                                     Key Protocols</th>
                                 <th
-                                    style="text-align:left; padding:0.6rem 0.8rem; color:var(--text-muted); font-weight:600; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">
+                                   >
                                     Security Threats</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr style="border-bottom: 1px solid var(--border-subtle);">
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Outfit',sans-serif; font-weight:700; color:#a78bfa;">
+                                   >
                                     7</td>
-                                <td style="padding:0.65rem 0.8rem; font-weight:600; color:var(--text-main);">Application
+                                <td>Application
                                 </td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft);">
+                                   >
                                     Data</td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft); font-size:0.8rem;">
+                                   >
                                     HTTP, FTP, SMTP, DNS, SSH</td>
-                                <td style="padding:0.65rem 0.8rem; color:#f87171; font-size:0.8rem;">SQLi, XSS, CSRF,
+                                <td>SQLi, XSS, CSRF,
                                     phishing</td>
                             </tr>
                             <tr style="border-bottom: 1px solid var(--border-subtle);">
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Outfit',sans-serif; font-weight:700; color:#818cf8;">
+                                   >
                                     6</td>
-                                <td style="padding:0.65rem 0.8rem; font-weight:600; color:var(--text-main);">
+                                <td>
                                     Presentation</td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft);">
+                                   >
                                     Data</td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft); font-size:0.8rem;">
+                                   >
                                     SSL/TLS, JPEG, ASCII, UTF-8</td>
-                                <td style="padding:0.65rem 0.8rem; color:#f87171; font-size:0.8rem;">SSL stripping, weak
+                                <td>SSL stripping, weak
                                     ciphers</td>
                             </tr>
                             <tr style="border-bottom: 1px solid var(--border-subtle);">
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Outfit',sans-serif; font-weight:700; color:#38bdf8;">
+                                   >
                                     5</td>
-                                <td style="padding:0.65rem 0.8rem; font-weight:600; color:var(--text-main);">Session
+                                <td>Session
                                 </td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft);">
+                                   >
                                     Data</td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft); font-size:0.8rem;">
+                                   >
                                     NetBIOS, RPC, PPTP</td>
-                                <td style="padding:0.65rem 0.8rem; color:#f87171; font-size:0.8rem;">Session hijacking,
+                                <td>Session hijacking,
                                     fixation</td>
                             </tr>
                             <tr style="border-bottom: 1px solid var(--border-subtle);">
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Outfit',sans-serif; font-weight:700; color:#22d3ee;">
+                                   >
                                     4</td>
-                                <td style="padding:0.65rem 0.8rem; font-weight:600; color:var(--text-main);">Transport
+                                <td>Transport
                                 </td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft);">
+                                   >
                                     Segment / Datagram</td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft); font-size:0.8rem;">
+                                   >
                                     TCP, UDP, SCTP</td>
-                                <td style="padding:0.65rem 0.8rem; color:#f87171; font-size:0.8rem;">SYN flood, port
+                                <td>SYN flood, port
                                     scanning</td>
                             </tr>
                             <tr style="border-bottom: 1px solid var(--border-subtle);">
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Outfit',sans-serif; font-weight:700; color:#34d399;">
+                                   >
                                     3</td>
-                                <td style="padding:0.65rem 0.8rem; font-weight:600; color:var(--text-main);">Network
+                                <td>Network
                                 </td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft);">
+                                   >
                                     Packet</td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft); font-size:0.8rem;">
+                                   >
                                     IP, ICMP, OSPF, BGP</td>
-                                <td style="padding:0.65rem 0.8rem; color:#f87171; font-size:0.8rem;">IP spoofing, BGP
+                                <td>IP spoofing, BGP
                                     hijack</td>
                             </tr>
                             <tr style="border-bottom: 1px solid var(--border-subtle);">
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Outfit',sans-serif; font-weight:700; color:#4ade80;">
+                                   >
                                     2</td>
-                                <td style="padding:0.65rem 0.8rem; font-weight:600; color:var(--text-main);">Data Link
+                                <td>Data Link
                                 </td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft);">
+                                   >
                                     Frame</td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft); font-size:0.8rem;">
+                                   >
                                     Ethernet, ARP, MAC, 802.11</td>
-                                <td style="padding:0.65rem 0.8rem; color:#f87171; font-size:0.8rem;">ARP poisoning, MAC
+                                <td>ARP poisoning, MAC
                                     flood</td>
                             </tr>
                             <tr>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Outfit',sans-serif; font-weight:700; color:#94a3b8;">
+                                   >
                                     1</td>
-                                <td style="padding:0.65rem 0.8rem; font-weight:600; color:var(--text-main);">Physical
+                                <td>Physical
                                 </td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft);">
+                                   >
                                     Bit</td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft); font-size:0.8rem;">
+                                   >
                                     Ethernet cables, Fiber, Wi-Fi RF</td>
-                                <td style="padding:0.65rem 0.8rem; color:#f87171; font-size:0.8rem;">Wiretapping,
+                                <td>Wiretapping,
                                     jamming</td>
                             </tr>
                         </tbody>
@@ -823,51 +604,51 @@ RECEIVER SIDE (De-encapsulation — headers stripped going UP):
                 <div style="overflow-x:auto;">
                     <table style="width:100%; border-collapse:collapse; font-size:0.875rem;">
                         <thead>
-                            <tr style="border-bottom: 1px solid var(--border-color);">
+                            <tr>
                                 <th
-                                    style="text-align:left; padding:0.6rem 0.8rem; color:var(--text-muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">
+                                   >
                                     OSI Layers</th>
                                 <th
-                                    style="text-align:left; padding:0.6rem 0.8rem; color:var(--text-muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">
+                                   >
                                     TCP/IP Layer</th>
                                 <th
-                                    style="text-align:left; padding:0.6rem 0.8rem; color:var(--text-muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">
+                                   >
                                     Protocols</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr style="border-bottom: 1px solid var(--border-subtle);">
-                                <td style="padding:0.65rem 0.8rem; color:#a78bfa; font-weight:600;">7 App + 6 Pres + 5
+                                <td>7 App + 6 Pres + 5
                                     Session</td>
-                                <td style="padding:0.65rem 0.8rem; color:var(--text-main); font-weight:600;">Application
+                                <td>Application
                                 </td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft); font-size:0.8rem;">
+                                   >
                                     HTTP, HTTPS, FTP, SMTP, DNS</td>
                             </tr>
                             <tr style="border-bottom: 1px solid var(--border-subtle);">
-                                <td style="padding:0.65rem 0.8rem; color:#22d3ee; font-weight:600;">4 Transport</td>
-                                <td style="padding:0.65rem 0.8rem; color:var(--text-main); font-weight:600;">Transport
+                                <td>4 Transport</td>
+                                <td>Transport
                                 </td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft); font-size:0.8rem;">
+                                   >
                                     TCP, UDP</td>
                             </tr>
                             <tr style="border-bottom: 1px solid var(--border-subtle);">
-                                <td style="padding:0.65rem 0.8rem; color:#34d399; font-weight:600;">3 Network</td>
-                                <td style="padding:0.65rem 0.8rem; color:var(--text-main); font-weight:600;">Internet
+                                <td>3 Network</td>
+                                <td>Internet
                                 </td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft); font-size:0.8rem;">
+                                   >
                                     IP, ICMP, ARP</td>
                             </tr>
                             <tr>
-                                <td style="padding:0.65rem 0.8rem; color:#94a3b8; font-weight:600;">2 Data Link + 1
+                                <td>2 Data Link + 1
                                     Physical</td>
-                                <td style="padding:0.65rem 0.8rem; color:var(--text-main); font-weight:600;">Network
+                                <td>Network
                                     Access</td>
                                 <td
-                                    style="padding:0.65rem 0.8rem; font-family:'Fira Code',monospace; color:var(--text-soft); font-size:0.8rem;">
+                                   >
                                     Ethernet, Wi-Fi, PPP</td>
                             </tr>
                         </tbody>

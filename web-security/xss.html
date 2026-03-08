@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="background-color:#020202">
+<html lang="en" >
 
 <head>
     <meta charset="UTF-8">
@@ -7,205 +7,10 @@
     <title>XSS - Cross-Site Scripting - Security Hub</title>
     <meta name="description"
         content="Complete XSS reference — reflected, stored, DOM-based XSS, payload library, filter bypass, and defenses.">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <link rel="stylesheet" href="../css/style.css">
-    <style>
-        .type-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem
-        }
-
-        .type-card {
-            background: var(--bg-surface-hover);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.25rem;
-            transition: all .25s
-        }
-
-        .type-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(245, 158, 11, .3)
-        }
-
-        .type-card .tc-icon {
-            font-size: 1.6rem;
-            margin-bottom: .6rem;
-            display: block
-        }
-
-        .type-card h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: .95rem;
-            font-weight: 600;
-            margin: 0 0 .4rem
-        }
-
-        .type-card p {
-            font-size: .82rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.5
-        }
-
-        .danger-box {
-            background: rgba(239, 68, 68, .06);
-            border: 1px solid rgba(239, 68, 68, .2);
-            border-radius: 10px;
-            padding: 1rem 1.2rem;
-            margin: .75rem 0;
-            display: flex;
-            gap: .75rem;
-            align-items: flex-start
-        }
-
-        .danger-box i {
-            color: #ef4444;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-            margin-top: 2px
-        }
-
-        .danger-box p {
-            font-size: .875rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.55
-        }
-
-        .tip-box {
-            background: rgba(16, 185, 129, .06);
-            border: 1px solid rgba(16, 185, 129, .2);
-            border-radius: 10px;
-            padding: 1rem 1.2rem;
-            margin: .75rem 0;
-            display: flex;
-            gap: .75rem;
-            align-items: flex-start
-        }
-
-        .tip-box i {
-            color: #10b981;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-            margin-top: 2px
-        }
-
-        .tip-box p {
-            font-size: .875rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.55
-        }
-
-        .payload-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: .85rem;
-            margin-top: 1rem
-        }
-
-        .payload-card {
-            background: rgba(7, 9, 14, .7);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: .9rem 1rem
-        }
-
-        .payload-card .pc-label {
-            font-size: .68rem;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            color: var(--text-muted);
-            font-weight: 600;
-            margin-bottom: .5rem
-        }
-
-        .payload-card code {
-            font-family: 'Fira Code', monospace;
-            font-size: .82rem;
-            color: #fbbf24;
-            word-break: break-all;
-            display: block;
-            line-height: 1.5
-        }
-
-        .defense-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: .85rem;
-            margin-top: 1rem
-        }
-
-        .defense-card {
-            background: rgba(16, 185, 129, .05);
-            border: 1px solid rgba(16, 185, 129, .15);
-            border-radius: 10px;
-            padding: 1rem
-        }
-
-        .defense-card i {
-            font-size: 1.3rem;
-            color: #34d399;
-            margin-bottom: .5rem;
-            display: block
-        }
-
-        .defense-card h4 {
-            font-family: 'Outfit', sans-serif;
-            font-size: .88rem;
-            font-weight: 600;
-            margin: 0 0 .3rem;
-            color: var(--text-main)
-        }
-
-        .defense-card p {
-            font-size: .8rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.5
-        }
-
-        .impact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: .75rem;
-            margin-top: 1rem
-        }
-
-        .impact-card {
-            background: rgba(239, 68, 68, .05);
-            border: 1px solid rgba(239, 68, 68, .15);
-            border-radius: 10px;
-            padding: .9rem;
-            display: flex;
-            flex-direction: column;
-            gap: .35rem
-        }
-
-        .impact-card i {
-            color: #f87171;
-            font-size: 1.2rem
-        }
-
-        .impact-card h4 {
-            font-family: 'Outfit', sans-serif;
-            font-size: .85rem;
-            font-weight: 600;
-            margin: 0;
-            color: var(--text-main)
-        }
-
-        .impact-card p {
-            font-size: .78rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.45
-        }
-    </style>
-    <script>if (localStorage.getItem('theme') === 'light-mode') document.documentElement.classList.add('light-mode');</script>
+    
+    
 </head>
 
 <body>
@@ -346,21 +151,21 @@
                 <h2><i class="ph-tree-structure"></i> Types of XSS</h2>
                 <div class="type-grid">
                     <div class="type-card">
-                        <span class="tc-icon" style="color:#f59e0b;"><i class="ph-arrow-u-up-left"></i></span>
+                        <span class="tc-icon"><i class="ph-arrow-u-up-left"></i></span>
                         <h3>Reflected XSS</h3>
                         <p>The malicious script is in the HTTP request (e.g., URL parameter) and the server reflects it
                             back in the immediate response. <strong>Not stored</strong> — victim must click a crafted
                             link. Most common type, often found in search boxes and error messages.</p>
                     </div>
                     <div class="type-card">
-                        <span class="tc-icon" style="color:#ef4444;"><i class="ph-database"></i></span>
+                        <span class="tc-icon"><i class="ph-database"></i></span>
                         <h3>Stored XSS (Persistent)</h3>
                         <p>The malicious script is <strong>saved in the server's database</strong> and served to all
                             users who view the affected page. Found in comments, profile fields, forum posts. Most
                             dangerous — affects everyone who visits, no crafted link needed.</p>
                     </div>
                     <div class="type-card">
-                        <span class="tc-icon" style="color:#8b5cf6;"><i class="ph-tree-view"></i></span>
+                        <span class="tc-icon"><i class="ph-tree-view"></i></span>
                         <h3>DOM-Based XSS</h3>
                         <p>The vulnerability exists in the <strong>client-side JavaScript</strong>, not the server. The
                             payload never reaches the server. Instead, dangerous DOM sinks like <code
@@ -368,21 +173,21 @@
                                 class="inline">eval()</code> process attacker-controlled data.</p>
                     </div>
                     <div class="type-card">
-                        <span class="tc-icon" style="color:#0ea5e9;"><i class="ph-arrows-out"></i></span>
+                        <span class="tc-icon"><i class="ph-arrows-out"></i></span>
                         <h3>Self-XSS</h3>
                         <p>Only affects the attacker's own browser. Not exploitable on its own, but can be combined with
                             <strong>CSRF</strong> or social engineering ("paste this code in your console") to trick
                             victims into running malicious JS themselves.</p>
                     </div>
                     <div class="type-card">
-                        <span class="tc-icon" style="color:#10b981;"><i class="ph-swap"></i></span>
+                        <span class="tc-icon"><i class="ph-swap"></i></span>
                         <h3>Blind XSS</h3>
                         <p>The payload is stored and executed in a context the attacker can't directly observe — like an
                             admin panel, logging system, or support ticket. Use tools like <strong>XSS Hunter</strong>
                             to receive callbacks when your payload fires.</p>
                     </div>
                     <div class="type-card">
-                        <span class="tc-icon" style="color:#fb7185;"><i class="ph-arrows-in"></i></span>
+                        <span class="tc-icon"><i class="ph-arrows-in"></i></span>
                         <h3>Mutation XSS (mXSS)</h3>
                         <p>The browser's HTML parser <em>transforms</em> a safe-looking string into something dangerous
                             when it's re-serialized. DOMPurify has had several mXSS bypasses. Extremely subtle and hard
@@ -442,7 +247,7 @@
                 <p>Start with basic probes, then use context-specific payloads to bypass filters. Always test in the
                     context where input appears (HTML body, attribute, JS, URL).</p>
 
-                <h3 style="font-family:'Outfit',sans-serif;font-size:1rem;margin-top:1.25rem;">Basic Probes &amp; Alert
+                <h3>Basic Probes &amp; Alert
                     Payloads</h3>
                 <div class="payload-grid">
                     <div class="payload-card">
@@ -473,7 +278,7 @@
                     </div>
                 </div>
 
-                <h3 style="font-family:'Outfit',sans-serif;font-size:1rem;margin-top:1.5rem;">Cookie Stealing Payloads
+                <h3>Cookie Stealing Payloads
                 </h3>
                 <div class="code-wrapper">
                     <div class="code-header"><span class="code-lang">javascript — Cookie Exfiltration</span><button
@@ -498,7 +303,7 @@
 &lt;/script&gt;</code></pre>
                 </div>
 
-                <h3 style="font-family:'Outfit',sans-serif;font-size:1rem;margin-top:1.5rem;">Attribute Context Bypass
+                <h3>Attribute Context Bypass
                 </h3>
                 <div class="code-wrapper">
                     <div class="code-header"><span class="code-lang">html — Breaking Out of Attributes</span><button
@@ -518,7 +323,7 @@ javascript:alert(document.cookie)
 '-alert(1)-'</code></pre>
                 </div>
 
-                <h3 style="font-family:'Outfit',sans-serif;font-size:1rem;margin-top:1.5rem;">Filter Bypass Payloads
+                <h3>Filter Bypass Payloads
                 </h3>
                 <div class="payload-grid">
                     <div class="payload-card">
@@ -663,7 +468,7 @@ cd /usr/share/beef-xss && ./beef
                                 class="inline">v-html</code> directive in Vue.</p>
                     </div>
                 </div>
-                <div class="code-wrapper" style="margin-top:1.5rem;">
+                <div class="code-wrapper">
                     <div class="code-header"><span class="code-lang">html — CSP Header Example</span><button
                             class="copy-btn" onclick="copyCode(this)"><i class="ph-copy"></i> Copy</button></div>
                     <pre><code># Strong CSP — blocks inline scripts, only allows own origin

@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" style="background-color:#020202">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -7,9 +6,8 @@
     <title>SecNotes — Security Operations Hub</title>
     <meta name="description"
         content="A comprehensive cybersecurity knowledge base covering Linux, Web Security, Networking, Privilege Escalation, and offensive security tools.">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <link rel="stylesheet" href="css/style.css">
-    <script>if (localStorage.getItem('theme') === 'light-mode') document.documentElement.classList.add('light-mode');</script>
 </head>
 
 <body>
@@ -220,8 +218,6 @@
 
             <!-- Hero Header -->
             <div class="hero-header">
-                <!-- Dot grid overlay -->
-                <div class="hero-grid-bg"></div>
                 <div class="hero-badge">
                     <i class="ph-shield-warning"></i>
                     <span>Security Operations Hub</span>
@@ -230,45 +226,33 @@
                 <p class="hero-desc">Your personal Red Team &amp; Security Operations knowledge base. Structured for
                     rapid command lookup, methodology deep-dives, and architectural mastery.</p>
                 <div class="hero-tags">
-                    <span class="tag tag-green"><i class="ph-circle-wavy-check"></i> CTF Ready</span>
-                    <span class="tag tag-blue"><i class="ph-lightning"></i> Rapid Reference</span>
-                    <span class="tag tag-purple"><i class="ph-shield-check"></i> Red Team Focus</span>
+                    <span class="tag tag-green">CTF Ready</span>
+                    <span class="tag tag-blue">Rapid Reference</span>
+                    <span class="tag tag-purple">Red Team Focus</span>
                 </div>
             </div>
 
             <!-- Stats Row -->
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: #a78bfa; background: rgba(139,92,246,0.12);">
-                        <i class="ph-files"></i>
-                    </div>
                     <div class="stat-info">
                         <span class="stat-number">30+</span>
                         <span class="stat-label">Reference Pages</span>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: #22d3ee; background: rgba(34,211,238,0.12);">
-                        <i class="ph-code-block"></i>
-                    </div>
                     <div class="stat-info">
                         <span class="stat-number">100+</span>
                         <span class="stat-label">Code Snippets</span>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: #34d399; background: rgba(16,185,129,0.12);">
-                        <i class="ph-toolbox"></i>
-                    </div>
                     <div class="stat-info">
                         <span class="stat-number">6</span>
                         <span class="stat-label">Topic Modules</span>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon" style="color: #fbbf24; background: rgba(245,158,11,0.12);">
-                        <i class="ph-target"></i>
-                    </div>
                     <div class="stat-info">
                         <span class="stat-number">4</span>
                         <span class="stat-label">Security Tools</span>
@@ -597,14 +581,7 @@ ffuf -u http://target/FUZZ -w wordlist.txt</code></pre>
     </div>
 
     <script src="js/script.js"></script>
-    <script>
-        function switchTab(tab) {
-            document.querySelectorAll('.qr-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.qr-panel').forEach(p => p.classList.remove('active'));
-            document.getElementById('tab-' + tab).classList.add('active');
-            document.getElementById('panel-' + tab).classList.add('active');
-        }
-    </script>
+    
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="background-color:#020202">
+<html lang="en" >
 
 <head>
     <meta charset="UTF-8">
@@ -7,289 +7,10 @@
     <title>Linux Overview - Security Hub</title>
     <meta name="description"
         content="Complete Linux overview — architecture, distributions, distro logos, and why Linux is the backbone of cybersecurity.">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <link rel="stylesheet" href="../css/style.css">
-    <style>
-        /* Linux hero banner */
-        .linux-hero {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .linux-hero-text {
-            flex: 1;
-            min-width: 280px;
-        }
-
-        /* terminal panel replacing image */
-        .linux-term-panel {
-            flex-shrink: 0;
-            width: 230px;
-            background: #07090e;
-            border: 1px solid rgba(52, 211, 153, .25);
-            border-radius: 14px;
-            overflow: hidden;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.78rem;
-            box-shadow: 0 0 30px rgba(52, 211, 153, .08), 0 8px 24px rgba(0, 0, 0, .5);
-        }
-
-        .linux-term-bar {
-            background: rgba(52, 211, 153, .07);
-            border-bottom: 1px solid rgba(52, 211, 153, .15);
-            padding: .45rem .8rem;
-            display: flex;
-            align-items: center;
-            gap: .5rem;
-        }
-
-        .linux-term-bar span {
-            font-size: .72rem;
-            color: #34d399;
-            font-weight: 600;
-        }
-
-        .linux-term-dots {
-            display: flex;
-            gap: .35rem;
-        }
-
-        .linux-term-dots i {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            display: block;
-        }
-
-        .dot-r {
-            background: #f87171;
-        }
-
-        .dot-y {
-            background: #fbbf24;
-        }
-
-        .dot-g {
-            background: #34d399;
-        }
-
-        .linux-term-body {
-            padding: .85rem;
-        }
-
-        .linux-term-body .tl {
-            color: #34d399;
-            margin-bottom: .3rem;
-            display: block;
-        }
-
-        .linux-term-body .tv {
-            color: #94a3b8;
-            display: block;
-            margin-bottom: .55rem;
-            padding-left: .75rem;
-        }
-
-        .linux-term-body .tv b {
-            color: #e2e8f0;
-        }
-
-        .linux-term-body .tc {
-            color: #64748b;
-            font-size: .7rem;
-            display: block;
-            margin-top: .6rem;
-        }
-
-        /* Distro families */
-        .distro-family-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 1rem;
-            margin-top: 1.25rem;
-        }
-
-        .distro-family-card {
-            background: var(--bg-surface-hover);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 1.25rem;
-            transition: all 0.25s ease;
-        }
-
-        .distro-family-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
-        }
-
-        .df-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .df-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            flex-shrink: 0;
-        }
-
-        .df-header h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            margin: 0;
-            color: var(--text-main);
-        }
-
-        .df-header small {
-            font-size: 0.72rem;
-            color: var(--text-muted);
-            display: block;
-        }
-
-        .df-desc {
-            font-size: 0.83rem;
-            color: var(--text-soft);
-            line-height: 1.55;
-            margin: 0 0 0.75rem;
-        }
-
-        .distro-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-        }
-
-        .distro-chip {
-            font-size: 0.72rem;
-            font-weight: 600;
-            padding: 0.2rem 0.6rem;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--text-soft);
-        }
-
-        /* Full distros image */
-        .distros-img-wrap {
-            text-align: center;
-            margin: 1.25rem 0;
-        }
-
-        .distros-img-wrap img {
-            max-width: 560px;
-            width: 100%;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .distros-img-wrap p {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            margin-top: 0.6rem;
-        }
-
-        /* Architecture layered viz */
-        .arch-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .arch-layer {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.9rem 1.2rem;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            transition: transform 0.2s ease;
-        }
-
-        .arch-layer:hover {
-            transform: translateX(4px);
-        }
-
-        .arch-layer-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 9px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .arch-layer-body h4 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin: 0 0 0.15rem;
-            color: var(--text-main);
-        }
-
-        .arch-layer-body p {
-            font-size: 0.82rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        /* Why Linux grid */
-        .why-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 0.85rem;
-            margin-top: 1rem;
-        }
-
-        .why-card {
-            background: var(--bg-surface-hover);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.1rem;
-            transition: border-color 0.2s, transform 0.2s;
-        }
-
-        .why-card:hover {
-            border-color: rgba(139, 92, 246, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .why-card i {
-            font-size: 1.5rem;
-            margin-bottom: 0.6rem;
-            display: block;
-        }
-
-        .why-card h4 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin: 0 0 0.35rem;
-            color: var(--text-main);
-        }
-
-        .why-card p {
-            font-size: 0.8rem;
-            color: var(--text-soft);
-            margin: 0;
-            line-height: 1.5;
-        }
-    </style>
-    <script>if (localStorage.getItem('theme') === 'light-mode') document.documentElement.classList.add('light-mode');</script>
+    
+    
 </head>
 
 <body>
@@ -405,7 +126,7 @@
             <div class="card">
                 <div class="linux-hero">
                     <div class="linux-hero-text">
-                        <h2 style="margin-top:0;"><i class="ph-book-open"></i> What is Linux?</h2>
+                        <h2><i class="ph-book-open"></i> What is Linux?</h2>
                         <p><strong>Linux</strong> is a family of open-source Unix-like operating systems based on the
                             <strong>Linux kernel</strong>, first released on September 17, 1991, by <strong>Linus
                                 Torvalds</strong>. The name comes from combining "Linus" and "Unix."
@@ -445,8 +166,8 @@
 
                 <div class="arch-stack">
                     <div class="arch-layer"
-                        style="background: rgba(139,92,246,0.07); border-color: rgba(139,92,246,0.2);">
-                        <div class="arch-layer-icon" style="background: rgba(139,92,246,0.15); color: #a78bfa;"><i
+                       >
+                        <div class="arch-layer-icon"><i
                                 class="ph-app-window"></i></div>
                         <div class="arch-layer-body">
                             <h4>Applications</h4>
@@ -456,8 +177,8 @@
                         </div>
                     </div>
                     <div class="arch-layer"
-                        style="background: rgba(14,165,233,0.07); border-color: rgba(14,165,233,0.2);">
-                        <div class="arch-layer-icon" style="background: rgba(14,165,233,0.15); color: #38bdf8;"><i
+                       >
+                        <div class="arch-layer-icon"><i
                                 class="ph-terminal-window"></i></div>
                         <div class="arch-layer-body">
                             <h4>Shell (CLI / GUI)</h4>
@@ -466,8 +187,8 @@
                         </div>
                     </div>
                     <div class="arch-layer"
-                        style="background: rgba(16,185,129,0.07); border-color: rgba(16,185,129,0.2);">
-                        <div class="arch-layer-icon" style="background: rgba(16,185,129,0.15); color: #34d399;"><i
+                       >
+                        <div class="arch-layer-icon"><i
                                 class="ph-gear-six"></i></div>
                         <div class="arch-layer-body">
                             <h4>System Libraries (glibc)</h4>
@@ -478,8 +199,8 @@
                         </div>
                     </div>
                     <div class="arch-layer"
-                        style="background: rgba(245,158,11,0.07); border-color: rgba(245,158,11,0.2);">
-                        <div class="arch-layer-icon" style="background: rgba(245,158,11,0.15); color: #fbbf24;"><i
+                       >
+                        <div class="arch-layer-icon"><i
                                 class="ph-cube"></i></div>
                         <div class="arch-layer-body">
                             <h4>Linux Kernel</h4>
@@ -490,8 +211,8 @@
                         </div>
                     </div>
                     <div class="arch-layer"
-                        style="background: rgba(239,68,68,0.07); border-color: rgba(239,68,68,0.2);">
-                        <div class="arch-layer-icon" style="background: rgba(239,68,68,0.15); color: #f87171;"><i
+                       >
+                        <div class="arch-layer-icon"><i
                                 class="ph-circuit-board"></i></div>
                         <div class="arch-layer-body">
                             <h4>Hardware</h4>
@@ -524,7 +245,7 @@
 
                     <div class="distro-family-card">
                         <div class="df-header">
-                            <div class="df-icon" style="background: rgba(225,29,72,0.12); color: #f43f5e;"><i
+                            <div class="df-icon"><i
                                     class="ph-package"></i></div>
                             <div>
                                 <h3>Debian Family</h3><small>Package manager: APT / .deb</small>
@@ -547,7 +268,7 @@
 
                     <div class="distro-family-card">
                         <div class="df-header">
-                            <div class="df-icon" style="background: rgba(236,72,153,0.12); color: #ec4899;"><i
+                            <div class="df-icon"><i
                                     class="ph-hard-hat"></i></div>
                             <div>
                                 <h3>Red Hat Family</h3><small>Package manager: DNF/YUM / .rpm</small>
@@ -568,7 +289,7 @@
 
                     <div class="distro-family-card">
                         <div class="df-header">
-                            <div class="df-icon" style="background: rgba(59,130,246,0.12); color: #60a5fa;"><i
+                            <div class="df-icon"><i
                                     class="ph-compass"></i></div>
                             <div>
                                 <h3>Arch Family</h3><small>Package manager: Pacman / AUR</small>
@@ -589,7 +310,7 @@
 
                     <div class="distro-family-card">
                         <div class="df-header">
-                            <div class="df-icon" style="background: rgba(16,185,129,0.12); color: #34d399;"><i
+                            <div class="df-icon"><i
                                     class="ph-shield-check"></i></div>
                             <div>
                                 <h3>Security / Pentest</h3><small>Purpose-built for hacking</small>
@@ -601,7 +322,7 @@
                             privacy-focused. BlackArch (Arch-based) has 2800+ tools.</p>
                         <div class="distro-chips">
                             <span class="distro-chip"
-                                style="background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.25); color:#34d399;">Kali
+                               >Kali
                                 Linux</span>
                             <span class="distro-chip">Parrot OS</span>
                             <span class="distro-chip">BlackArch</span>
@@ -611,7 +332,7 @@
 
                     <div class="distro-family-card">
                         <div class="df-header">
-                            <div class="df-icon" style="background: rgba(139,92,246,0.12); color: #a78bfa;"><i
+                            <div class="df-icon"><i
                                     class="ph-eye-slash"></i></div>
                             <div>
                                 <h3>Privacy &amp; Anonymity</h3><small>Leave no trace, full anonymity</small>
@@ -630,7 +351,7 @@
 
                     <div class="distro-family-card">
                         <div class="df-header">
-                            <div class="df-icon" style="background: rgba(245,158,11,0.12); color: #fbbf24;"><i
+                            <div class="df-icon"><i
                                     class="ph-server"></i></div>
                             <div>
                                 <h3>Enterprise Servers</h3><small>Corporate data centre grade</small>
@@ -680,37 +401,37 @@
                     machine. Here is exactly why:</p>
                 <div class="why-grid">
                     <div class="why-card">
-                        <i class="ph-sliders" style="color: var(--accent-primary);"></i>
+                        <i class="ph-sliders"></i>
                         <h4>Granular Control</h4>
                         <p>Full root access to network stack, kernel parameters, memory handling, and file permissions.
                             Nothing is hidden from you.</p>
                     </div>
                     <div class="why-card">
-                        <i class="ph-toolbox" style="color: #10b981;"></i>
+                        <i class="ph-toolbox"></i>
                         <h4>Tool Availability</h4>
                         <p>Metasploit, Nmap, Aircrack-ng, Wireshark, Burp, Hydra — all built natively for Linux. Raw
                             socket APIs Windows locks down are fully open here.</p>
                     </div>
                     <div class="why-card">
-                        <i class="ph-terminal-window" style="color: var(--accent-secondary);"></i>
+                        <i class="ph-terminal-window"></i>
                         <h4>Bash Automation</h4>
                         <p>Script entire recon pipelines, auto-enumerate targets, parse tool output, and chain exploits
                             — all in native Bash.</p>
                     </div>
                     <div class="why-card">
-                        <i class="ph-lightning" style="color: #f59e0b;"></i>
+                        <i class="ph-lightning"></i>
                         <h4>Lightweight</h4>
                         <p>Headless (no GUI) Linux servers run dozens of parallel tools on the same RAM that Windows
                             needs just to boot the UI.</p>
                     </div>
                     <div class="why-card">
-                        <i class="ph-code" style="color: #a78bfa;"></i>
+                        <i class="ph-code"></i>
                         <h4>Open Source Kernel</h4>
                         <p>Read the kernel source to understand exactly how syscalls work. Create custom kernel modules
                             for rootkits, packet capture, or exploit development.</p>
                     </div>
                     <div class="why-card">
-                        <i class="ph-users" style="color: #fb7185;"></i>
+                        <i class="ph-users"></i>
                         <h4>Community &amp; Docs</h4>
                         <p>ArchWiki, man pages, and a massive global community. Every tool has detailed documentation
                             and community walkthroughs.</p>

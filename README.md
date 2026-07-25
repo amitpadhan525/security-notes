@@ -73,6 +73,7 @@ The repository is organized into directories representing different platforms an
 [HackTheBox](https://app.hackthebox.com/) provides hands-on cybersecurity labs and vulnerable virtual machines.
 
 * **HTB Profile:** [Amit Padhan on HackTheBox](https://profile.hackthebox.com/profile/019c3941-83d7-70be-9be8-8f006c7a93f9)
+* **Lab Access Guide:** [OpenVPN Setup & Usage Guide](file:///home/amit/github/security-notes/hackthebox/openvpn.md)
 * **Detailed Writeups Index:** [`hackthebox/README.md`](file:///home/amit/github/security-notes/hackthebox/README.md)
 * **Writeups Path:** [`hackthebox/`](file:///home/amit/github/security-notes/hackthebox)
 

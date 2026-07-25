@@ -3,6 +3,7 @@
 Welcome to my collection of HackTheBox (HTB) room writeups and challenge documentation. Below is a structured log of completed machines, starting point tiers, and penetration testing walkthroughs.
 
 - **HTB Profile:** [Amit Padhan on HackTheBox](https://profile.hackthebox.com/profile/019c3941-83d7-70be-9be8-8f006c7a93f9)
+- **Lab Access Guide:** [OpenVPN Setup & Usage Guide](./openvpn.md)
 
 ---
 

@@ -51,6 +51,7 @@ The repository is organized into directories representing different platforms an
 
 [TryHackMe](https://tryhackme.com/) is a hands-on cybersecurity platform. This directory contains writeups for completed rooms, study templates, and cheat-sheets on security principles.
 
+* **THM Profile:** [Amit Padhan on TryHackMe](https://tryhackme.com/p/amitpadhan525)
 * **Detailed Writeups Index:** [`tryhackme/README.md`](file:///home/amit/github/security-notes/tryhackme/README.md)
 * **Writeups Path:** [`tryhackme/`](file:///home/amit/github/security-notes/tryhackme)
 

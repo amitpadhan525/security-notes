@@ -2,6 +2,10 @@
 
 Welcome to my collection of TryHackMe writeups. Below is a list of rooms I've completed and documented.
 
+- **TryHackMe Profile:** [Amit Padhan on TryHackMe](https://tryhackme.com/p/amitpadhan525)
+
+---
+
 ## 🏆 Featured Writeups
 - [Pickle Rick](./picklerick.md) - Web exploitation and command injection.
 - [RootMe](./r00tme.md) - File upload bypass and SUID escalation.

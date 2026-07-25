@@ -1,6 +1,6 @@
 # Security Notes & CTF Writeups 🛡️
 
-Welcome to my personal cybersecurity repository. This space is dedicated to documenting my learning journey, CTF (Capture The Flag) writeups, and security fundamental notes across platforms like **OverTheWire** and **TryHackMe**.
+Welcome to my personal cybersecurity repository. This space is dedicated to documenting my learning journey, CTF (Capture The Flag) writeups, and security fundamental notes across platforms like **OverTheWire**, **TryHackMe**, and **HackTheBox**.
 
 ---
 
@@ -10,6 +10,7 @@ The repository is organized into directories representing different platforms an
 
 ```text
 .
+├── hackthebox/             # HackTheBox machine writeups & Starting Point walkthroughs
 ├── overthewire/
 │   └── bandit/             # OverTheWire Bandit wargame level solutions (0 to 15)
 └── tryhackme/              # TryHackMe room writeups & security concept notes
@@ -63,6 +64,25 @@ The repository is organized into directories representing different platforms an
 * **Linux & Windows:** [Linux CLI Basics](file:///home/amit/github/security-notes/tryhackme/linuxclibasics.md), [Linux Fundamentals](file:///home/amit/github/security-notes/tryhackme/linuxfundamentalspart1.md), [Windows Basics](file:///home/amit/github/security-notes/tryhackme/windowsbasics.md).
 * **Tools:** [Nmap (Network Mapping)](file:///home/amit/github/security-notes/tryhackme/nmap.md), [Nmap Host Discovery](file:///home/amit/github/security-notes/tryhackme/nmaplivehostdiscovery.md), [OpenVPN](file:///home/amit/github/security-notes/tryhackme/openvpn.md).
 * **Concepts:** [Cyber Kill Chain](file:///home/amit/github/security-notes/tryhackme/cyberkillchain.md), [Unified Kill Chain](file:///home/amit/github/security-notes/tryhackme/unifiedkillchain.md), [Pyramid of Pain](file:///home/amit/github/security-notes/tryhackme/pyramidofpain.md), [CIA Triad](file:///home/amit/github/security-notes/tryhackme/theciatriad.md).
+
+---
+
+## 📦 HackTheBox
+
+[HackTheBox](https://app.hackthebox.com/) provides hands-on cybersecurity labs and vulnerable virtual machines.
+
+* **HTB Profile:** [Amit Padhan on HackTheBox](https://profile.hackthebox.com/profile/019c3941-83d7-70be-9be8-8f006c7a93f9)
+* **Detailed Writeups Index:** [`hackthebox/README.md`](file:///home/amit/github/security-notes/hackthebox/README.md)
+* **Writeups Path:** [`hackthebox/`](file:///home/amit/github/security-notes/hackthebox)
+
+### 🏆 Completed Starting Point (Tier 0) Rooms
+| Room Name | Focus / Vulnerability | Protocol / Service | Writeup Link |
+|-----------|-----------------------|-------------------|--------------|
+| **Meow** | Unauthenticated Root Login | Port 23 (Telnet) | [Meow](file:///home/amit/github/security-notes/hackthebox/meow.md) |
+| **Fawn** | Anonymous File Transfer Access | Port 21 (FTP / vsftpd) | [Fawn](file:///home/amit/github/security-notes/hackthebox/fawn.md) |
+| **Dancing** | SMB Guest Share Enumeration | Port 445 (SMB / smbclient) | [Dancing](file:///home/amit/github/security-notes/hackthebox/dancing.md) |
+| **Appointment** | Web SQL Injection Bypass | Port 80 (HTTP / SQLi) | [Appointment](file:///home/amit/github/security-notes/hackthebox/appointment.md) |
+| **Sequel** | Remote Database Access | Port 3306 (MariaDB / MySQL) | [Sequel](file:///home/amit/github/security-notes/hackthebox/sequel.md) |
 
 ---
 

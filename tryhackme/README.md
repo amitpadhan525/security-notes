@@ -2,7 +2,8 @@
 
 Welcome to my collection of TryHackMe writeups. Below is a list of rooms I've completed and documented.
 
-- **TryHackMe Profile:** [Amit Padhan on TryHackMe](https://tryhackme.com/p/amitpadhan525)
+- **TryHackMe Profile:** [Amit Padhan](https://tryhackme.com/p/amitpadhan525)
+- **Lab Setup:** [OpenVPN Setup & Guide](./openvpn.md)
 
 ---
 

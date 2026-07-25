@@ -1,9 +1,9 @@
 # HackTheBox Writeups 📦
 
-Welcome to my collection of HackTheBox (HTB) room writeups and challenge documentation. Below is a structured log of completed machines, starting point tiers, and penetration testing walkthroughs.
+My notes and writeups for HackTheBox (HTB) machines and Starting Point challenges.
 
-- **HTB Profile:** [Amit Padhan on HackTheBox](https://profile.hackthebox.com/profile/019c3941-83d7-70be-9be8-8f006c7a93f9)
-- **Lab Access Guide:** [OpenVPN Setup & Usage Guide](./openvpn.md)
+- **HTB Profile:** [Amit Padhan](https://profile.hackthebox.com/profile/019c3941-83d7-70be-9be8-8f006c7a93f9)
+- **Lab Setup:** [OpenVPN Setup & Usage Guide](./openvpn.md)
 
 ---
 
@@ -19,13 +19,10 @@ Welcome to my collection of HackTheBox (HTB) room writeups and challenge documen
 
 ---
 
-## 🎓 Starting Point Tier 0 Overview
+## 📌 Starting Point Tier 0 Notes
 
-Tier 0 introduces fundamental network protocol analysis, basic service enumeration, and essential misconfiguration exploitation:
-- **Telnet & FTP:** Unencrypted protocols, default accounts, and anonymous access.
-- **SMB Shares:** Network drive enumeration without credentials using null sessions.
-- **Web SQL Injection:** Bypassing web authentication mechanisms via raw SQL logic errors.
-- **Database Services:** Interacting directly with exposed database management systems.
-
----
-*Compiled by [Amit Padhan](https://github.com/amitpadhan525)*
+Tier 0 covers core service enumeration and basic misconfigurations:
+- **Telnet & FTP:** Exposed plaintext protocols and anonymous logins.
+- **SMB Shares:** Guest access and share enumeration.
+- **Web SQL Injection:** Bypassing authentication with SQL logic errors.
+- **Database Services:** Unauthenticated remote access to MySQL / MariaDB.

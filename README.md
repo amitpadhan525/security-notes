@@ -94,4 +94,5 @@ Feel free to browse through the directories:
 1. Use markdown-supported editors/viewers (like GitHub, VS Code, or Obsidian) to view notes with proper syntax highlighting.
 2. Follow the step-by-step guides for CTFs or refer to the cheat-sheets for conceptual review.
 
-*Compiled by [Amit Padhan](https://github.com/amitpadhan525)*
+---
+*Maintained by [Amit Padhan](https://github.com/amitpadhan525)*

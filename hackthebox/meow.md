@@ -1,52 +1,46 @@
 # Meow - HackTheBox Writeup 🐱
 
-## 🚩 Room Information
-- **Platform:** [HackTheBox](https://app.hackthebox.com/)
-- **Track:** Starting Point - Tier 0
-- **Difficulty:** Very Easy
-- **Category:** Network Services / Telnet
-- **Status:** ✅ Completed
+- **Platform:** HackTheBox (Starting Point - Tier 0)
+- **Target OS:** Linux
+- **Vulnerability:** Unauthenticated Telnet Root Login
 
 ---
 
-## 🎓 Learning Objectives
-- Understanding unencrypted network protocol risks (**Telnet**).
-- Performing port enumeration with **Nmap**.
-- Connecting to remote services using standard CLI clients (`telnet`).
-- Identifying weak or absent credential policies on administrative accounts (`root`).
+## 📌 Reconnaissance
 
----
+I started by running an Nmap service scan on the target IP:
 
-## 🧠 Knowledge Required
-- Basic Linux terminal navigation.
-- Fundamental networking concepts (IP addresses, TCP ports).
-- Usage of `nmap` and `telnet`.
-
----
-
-## 🔍 Step-by-Step Walkthrough
-
-### 1. Port Enumeration
-Scan the target IP address to identify active services:
 ```bash
 nmap -sV <TARGET_IP>
 ```
-* **Discovered Open Port:** `23/tcp` running `telnet` (Linux telnetd).
 
-### 2. Service Analysis
-Telnet is an older, unencrypted remote terminal protocol. Unlike SSH, it transmits data in plaintext and often relies on basic system account logins.
+### Scan Results:
+- `23/tcp open telnet Linux telnetd`
 
-### 3. Exploitation & Access
-Connect to the host over port 23:
+Only port 23 (Telnet) was open. Telnet is a legacy unencrypted protocol that passes credentials in plaintext.
+
+---
+
+## ⚡ Exploitation
+
+I connected to the service using the `telnet` client:
+
 ```bash
 telnet <TARGET_IP>
 ```
-When prompted for a login username:
-- **Username:** `root`
-- **Password:** *(None required - press Enter)*
 
-### 4. Retrieving the Flag
-Once authenticated with root privileges:
+When prompted for login, I tried `root` with no password:
+- **Login:** `root`
+- **Password:** *(press Enter)*
+
+Access was immediately granted as root.
+
+---
+
+## 🚩 Flag Capture
+
+Once logged in as root:
+
 ```bash
 ls -la
 cat flag.txt
@@ -54,9 +48,6 @@ cat flag.txt
 
 ---
 
-## 🛡️ Remediation & Key Takeaways
-- **Disable Telnet:** Replace legacy Telnet services with secure, encrypted SSH (`sshd`).
-- **Enforce Password Policies:** Ensure standard accounts (especially `root`) cannot authenticate without strong credentials or key-based authentication.
-
----
-*Based on HackTheBox content. Compiled by [Amit Padhan](https://github.com/amitpadhan525)*
+## 💡 Notes & Takeaways
+- Never leave Telnet exposed to a network, especially with default/blank root passwords.
+- Replace Telnet with SSH for encrypted remote administration.

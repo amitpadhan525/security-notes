@@ -71,7 +71,7 @@ cat readme
 
 | Next Level | Password |
 |------------|----------|
-| `bandit1`  | `ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If` |
+| `bandit1`  | `[REDACTED]` |
 
 ---
 

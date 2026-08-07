@@ -131,7 +131,7 @@ openssl s_client -connect google.com:443 | openssl x509 -noout -text
 
 | Next Level | Password |
 |------------|----------|
-| `bandit16` | `kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx` |
+| `bandit16` | `[REDACTED]` |
 
 ---
 

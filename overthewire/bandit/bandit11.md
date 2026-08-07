@@ -115,7 +115,7 @@ cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
 
 | Next Level | Password |
 |------------|----------|
-| `bandit12` | `7x16WNeHIi5YkIhWsfFIqoognUTyj9Q4` |
+| `bandit12` | `[REDACTED]` |
 
 ---
 

@@ -94,7 +94,7 @@ find inhere/ -type f -size 1033c ! -executable | xargs cat
 
 | Next Level | Password |
 |------------|----------|
-| `bandit6`  | `HWasnPhtq9AVKe0dmk45nxy20cvUa6EG` |
+| `bandit6`  | `[REDACTED]` |
 
 ---
 

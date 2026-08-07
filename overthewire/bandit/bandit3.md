@@ -98,7 +98,7 @@ cat .hidden
 
 | Next Level | Password |
 |------------|----------|
-| `bandit4`  | `2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ` |
+| `bandit4`  | `[REDACTED]` |
 
 ---
 

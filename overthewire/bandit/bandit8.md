@@ -90,7 +90,7 @@ cherry               cherry
 
 | Next Level | Password |
 |------------|----------|
-| `bandit9`  | `4CKMh1JI91bUIZZPXDqGanal4xvAg0JM` |
+| `bandit9`  | `[REDACTED]` |
 
 ---
 

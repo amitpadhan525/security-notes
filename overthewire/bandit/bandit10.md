@@ -104,7 +104,7 @@ base64 -d data.txt
 
 | Next Level | Password |
 |------------|----------|
-| `bandit11` | `dtR173fZKb0RRsDFSGsg2RWnpNVj3qRr` |
+| `bandit11` | `[REDACTED]` |
 
 ---
 

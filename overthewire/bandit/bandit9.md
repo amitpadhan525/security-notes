@@ -103,7 +103,7 @@ strings data.txt | grep "=="
 
 | Next Level | Password |
 |------------|----------|
-| `bandit10` | `FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey` |
+| `bandit10` | `[REDACTED]` |
 
 ---
 

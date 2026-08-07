@@ -92,7 +92,7 @@ cat sp<TAB>     # press Tab to autocomplete the full name
 
 | Next Level | Password |
 |------------|----------|
-| `bandit3`  | `MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx` |
+| `bandit3`  | `[REDACTED]` |
 
 ---
 

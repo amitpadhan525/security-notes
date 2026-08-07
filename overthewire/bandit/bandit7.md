@@ -88,7 +88,7 @@ millionth       <password_here>
 
 | Next Level | Password |
 |------------|----------|
-| `bandit8`  | `dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc` |
+| `bandit8`  | `[REDACTED]` |
 
 ---
 

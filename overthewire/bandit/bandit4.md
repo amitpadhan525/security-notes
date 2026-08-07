@@ -95,7 +95,7 @@ for f in ./-file0*; do echo "$f:"; file "$f"; done | grep ASCII
 
 | Next Level | Password |
 |------------|----------|
-| `bandit5`  | `4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw` |
+| `bandit5`  | `[REDACTED]` |
 
 ---
 

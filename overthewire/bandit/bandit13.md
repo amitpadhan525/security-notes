@@ -122,7 +122,7 @@ chmod 600 sshkey.private
 
 | Next Level | Password |
 |------------|----------|
-| `bandit14` | `MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS` |
+| `bandit14` | `[REDACTED]` |
 
 ---
 

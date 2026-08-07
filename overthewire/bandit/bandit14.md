@@ -111,7 +111,7 @@ echo "hello" | nc host port
 
 | Next Level | Password |
 |------------|----------|
-| `bandit15` | `8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo` |
+| `bandit15` | `[REDACTED]` |
 
 ---
 

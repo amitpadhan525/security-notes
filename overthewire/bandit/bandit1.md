@@ -82,7 +82,7 @@ cat < -
 
 | Next Level | Password |
 |------------|----------|
-| `bandit2`  | `263JGJPfgU6LtdEvgfWU1XP5yac29mFx` |
+| `bandit2`  | `[REDACTED]` |
 
 ---
 

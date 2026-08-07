@@ -97,7 +97,7 @@ cat /var/lib/dpkg/info/bandit7.password
 
 | Next Level | Password |
 |------------|----------|
-| `bandit7`  | `morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj` |
+| `bandit7`  | `[REDACTED]` |
 
 ---
 

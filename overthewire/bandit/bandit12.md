@@ -134,7 +134,7 @@ xxd data.bin | head -3
 
 | Next Level | Password |
 |------------|----------|
-| `bandit13` | `FO5dwFsc0cbaIiH0h8J2eUks2vdTDwAn` |
+| `bandit13` | `[REDACTED]` |
 
 ---
 
